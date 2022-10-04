@@ -1,0 +1,69 @@
+= Architecture Characteristics
+Motaz Mohammad <motazco135@gmail.com>
+:toc:
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+
+== Architecture Characteristics
+Describe concerns critical to success of the architecture and there for the system as whole without discount its importance.
+
+.An Architecture Characteristics meets three criteria:
+* Specifies non-domain design consideration.
+* Influences some structural aspects of the design.
+* Is critical or important to application success.
+
+=== Specifies non-domain design consideration
+
+When designing an application, the requirements specify what the. application should do , architecture characteristics specify operational and design criteria for success, concerning about how to implement the requirements and why certain choices were mad.
+
+.Example
+====
+A common importance architecture characteristic specify a certain level of performance for the application which often does not appear in
+ the requirement document.
+====
+
+=== Influences some structural aspects of the design
+
+The Architecture characteristic should define if the Project required a special structural to succeed?
+
+.Example
+====
+security which always a concern in every project, every system must take a baseline of precautions during design and coding.
+However, it rises to the level of architecture characteristic when the architect needs to design something special.
+====
+
+=== Is critical or important to application success:
+
+Application could support a huge number of Architecture characteristic, but it shouldn't,
+support for each characteristic adds more complexity to the design.
+
+So it is a critical job for architecture to choose the fewest characteristics that important to application success.
+
+.Based on that we can divide the architecture characteristics to :
+* *Implicit*
+
+ Are rarely appear in the requirement, however it is important for project succession.
+
+.Example
+====
+Availability, reliability and security which may not be included in the requirement document  but the architects should use their knowledge and domain expertise to uncover this architecture characteristics in the design phase.
+====
+* *Explicit*
+
+ Appears in the requirement.
+
+Architecture characteristics interacts with one another and support each other which terns to support the overall design of the system , which lead us to the architect usually used term "it-depends" .
+
+
+== Trade-Offs and Least Worst Architecture
+Application can only support a few of the architecture characteristics, each of supported characteristics require design effort and perhaps structural support.
+Because of the interaction between  architecture characteristics it will often have an impact on each other.
+
+Each architecture characteristic that an architect designs to support for potentially complicates the overall design.
+
+====
+Never shoot for the best architecture, but rather the least worst architecture.
+====
+
+Architect should design architecture to as iterative as possible,you can't discover the exact correct thing in the first attempt.
+
