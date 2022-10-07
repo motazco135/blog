@@ -1,0 +1,94 @@
+= Identifying Architectural Characteristics
+Motaz Mohammad <motazco135@gmail.com>
+:toc:
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+
+== Identifying Architectural Characteristics
+Identifying the correct architectural characteristics for a given problem required an architect to not only understand the doman problem but also collaborate with the problem domain stockholders to determine what is truly important from domain perspective.
+
+=== Extracting Architecture Characteristics from Domain Concerns
+
+An architect must be able to translate the domain concerns to the right architecture characteristics.
+
+Understanding the key domain goals and domain situation allows an architect to translate those domain concerns to the correct and justifiable architecture decisions.
+
+When collaborating with domain stakeholders to define the driving architecture characteristics is to work hard to keep the final list as short as possible.
+
+[quote, ,anti-pattern]
+____
+Trying to design a generic architecture that will support all the architecture characteristics is a common anti-pattern.
+____
+
+Trying to  prioritize the final list of architecture characteristics in most cased it is a fool's errand and will not only wast time but aslo produce a lot of unnecessary frustration and disagreement .
+
+A better approach is to have the final list (in any order) and ask teh domain stakeholders to select the top three most important.This is much easier to gain the approval and also fosters discussions about what is the most important which will help the architect in analyze trade-offs when making architecture decisions.
+
+Most architecture characteristics come from listening to key domain stakeholders and collaborating with them to determin what is the important from domain perspective.
+
+The main challenge is that the domain stakeholders and architecture does not speak the same language.
+
+.Example Domain stakeholders language
+====
+Domain stakeholders talk about mergers and acquisitions, user satisfaction, time to market, and competitive advantage.
+====
+
+.Example Architects language
+====
+Architects talk about scalability, interoperability, fault tolerance, learnability, and availability.
+====
+
+This is "Lost in translation" problem where the architect and domain stakeholders dose not understand each other. Fortunately there is usually a translation from domain concerns to architecture characteristics.The below table show some of the more common domain concerns and the corresponding architecture characteristics that support them.
+
+.Translation of domain concerns to architecture characteristics
+|===
+|Domain concern |Architecture characteristics
+
+|Mergers and acquisitions
+|Interoperability, scalability, adaptability, extensibility
+
+|Time to market
+|Agility, testability, deploy-ability
+
+|User satisfaction
+|Performance, availability, fault tolerance, testability, deploy-ability, agility, security
+
+|Competitive advantage
+|Agility, testability, deploy-ability, scalability, availability, fault tolerance
+
+|Time and budget
+|Simplicity, feasibility
+|===
+
+The architect must equally place a focus on the domain stakeholders concerns
+which will lead to equally place a focus on the architecture characteristics.
+
+=== Extracting Architecture Characteristics from Requirements
+Some architecture characteristics come from explicit statements in requirements documents.
+
+.What is architecture katas?
+----
+It is a cleaver method to allow architects a way to practices deriving architecture characteristics from domain -targeted descriptions.
+Architecture katas are intended as a small group (3-5 peaple) exercise, usually as part of a larger group, each group are provided with a problem stated in domain terms and addditonal context(things thgat might not appear in requierments yet impact design).
+The group works for 45 minutes on a design then show the result to other groupds, who vote on who came up with the best Architecture.
+----
+.Each kata has predefined sections:
+----
+Description
+    The overall domain problem the system is trying to solve
+
+Users
+    The expected number and/or types of users of the system
+
+Requirements
+    Domain/domain-level requirements, as an architect might expect from domain users/domain experts
+
+Additional context
+    Many of the considerations an architect must make aren’t explicitly expressed in requirements but rather by implicit knowledge of the problem domain
+----
+https://nealford.com/katas/[For more details check katas]
+
+[quote]
+____
+There are no wrong answers in architecture, only expensive ones.
+____

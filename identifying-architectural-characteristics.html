@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
 <meta name="author" content="Motaz Mohammad">
-<title>Motaz Mohammad Blog</title>
+<title>Identifying Architectural Characteristics</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -440,7 +440,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Motaz Mohammad Blog</h1>
+<h1>Identifying Architectural Characteristics</h1>
 <div class="details">
 <span id="author" class="author">Motaz Mohammad</span><br>
 <span id="email" class="email"><a href="mailto:motazco135@gmail.com">motazco135@gmail.com</a></span><br>
@@ -448,40 +448,160 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_about">About</a></li>
-<li><a href="#_blog">Blog</a></li>
+<li><a href="#_identifying_architectural_characteristics">Identifying Architectural Characteristics</a>
+<ul class="sectlevel2">
+<li><a href="#_extracting_architecture_characteristics_from_domain_concerns">Extracting Architecture Characteristics from Domain Concerns</a></li>
+<li><a href="#_extracting_architecture_characteristics_from_requirements">Extracting Architecture Characteristics from Requirements</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_about">About</h2>
+<h2 id="_identifying_architectural_characteristics">Identifying Architectural Characteristics</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Solution Architect with board understanding of software lifecycle and solution architectures.</p>
+<p>Identifying the correct architectural characteristics for a given problem required an architect to not only understand the doman problem but also collaborate with the problem domain stockholders to determine what is truly important from domain perspective.</p>
+</div>
+<div class="sect2">
+<h3 id="_extracting_architecture_characteristics_from_domain_concerns">Extracting Architecture Characteristics from Domain Concerns</h3>
+<div class="paragraph">
+<p>An architect must be able to translate the domain concerns to the right architecture characteristics.</p>
 </div>
 <div class="paragraph">
-<p>During my studies and work experience , I have had the opportunity to hone my skills with these languages/frameworks : Java, EJB, Spring framework, Spring Boot, Spring Security, JPA, Hibernate, JSF, PrimeFaces, GWT, JAXP, REST/SOAP Web Services, JSON, XML, Apache Lucene, Apache Solr, Apache Struts, HBASE Android Programming, Objective-c, AngularJS, ionic,React and go.</p>
+<p>Understanding the key domain goals and domain situation allows an architect to translate those domain concerns to the correct and justifiable architecture decisions.</p>
+</div>
+<div class="paragraph">
+<p>When collaborating with domain stakeholders to define the driving architecture characteristics is to work hard to keep the final list as short as possible.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Trying to design a generic architecture that will support all the architecture characteristics is a common anti-pattern.</p>
+</div>
+</blockquote>
+<div class="attribution">
+<cite>anti-pattern</cite>
+</div>
+</div>
+<div class="paragraph">
+<p>Trying to  prioritize the final list of architecture characteristics in most cased it is a fool&#8217;s errand and will not only wast time but aslo produce a lot of unnecessary frustration and disagreement .</p>
+</div>
+<div class="paragraph">
+<p>A better approach is to have the final list (in any order) and ask teh domain stakeholders to select the top three most important.This is much easier to gain the approval and also fosters discussions about what is the most important which will help the architect in analyze trade-offs when making architecture decisions.</p>
+</div>
+<div class="paragraph">
+<p>Most architecture characteristics come from listening to key domain stakeholders and collaborating with them to determin what is the important from domain perspective.</p>
+</div>
+<div class="paragraph">
+<p>The main challenge is that the domain stakeholders and architecture does not speak the same language.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 1. Example Domain stakeholders language</div>
+<div class="content">
+<div class="paragraph">
+<p>Domain stakeholders talk about mergers and acquisitions, user satisfaction, time to market, and competitive advantage.</p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_blog">Blog</h2>
-<div class="sectionbody">
-<div class="ulist">
-<div class="title">Architecture</div>
-<ul>
-<li>
-<p><a href="https://motazco135.github.io/blog/architecture-characteristics.html">Architecture Characteristics</a></p>
-</li>
-</ul>
+<div class="exampleblock">
+<div class="title">Example 2. Example Architects language</div>
+<div class="content">
+<div class="paragraph">
+<p>Architects talk about scalability, interoperability, fault tolerance, learnability, and availability.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This is "Lost in translation" problem where the architect and domain stakeholders dose not understand each other. Fortunately there is usually a translation from domain concerns to architecture characteristics.The below table show some of the more common domain concerns and the corresponding architecture characteristics that support them.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Translation of domain concerns to architecture characteristics</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Domain concern</th>
+<th class="tableblock halign-left valign-top">Architecture characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mergers and acquisitions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interoperability, scalability, adaptability, extensibility</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time to market</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Agility, testability, deploy-ability</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User satisfaction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance, availability, fault tolerance, testability, deploy-ability, agility, security</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Competitive advantage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Agility, testability, deploy-ability, scalability, availability, fault tolerance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time and budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simplicity, feasibility</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The architect must equally place a focus on the domain stakeholders concerns
+which will lead to equally place a focus on the architecture characteristics.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_extracting_architecture_characteristics_from_requirements">Extracting Architecture Characteristics from Requirements</h3>
+<div class="paragraph">
+<p>Some architecture characteristics come from explicit statements in requirements documents.</p>
+</div>
+<div class="listingblock">
+<div class="title">What is architecture katas?</div>
+<div class="content">
+<pre>It is a cleaver method to allow architects a way to practices deriving architecture characteristics from domain -targeted descriptions.
+Architecture katas are intended as a small group (3-5 peaple) exercise, usually as part of a larger group, each group are provided with a problem stated in domain terms and addditonal context(things thgat might not appear in requierments yet impact design).
+The group works for 45 minutes on a design then show the result to other groupds, who vote on who came up with the best Architecture.</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Each kata has predefined sections:</div>
+<div class="content">
+<pre>Description
+    The overall domain problem the system is trying to solve
+
+Users
+    The expected number and/or types of users of the system
+
+Requirements
+    Domain/domain-level requirements, as an architect might expect from domain users/domain experts
+
+Additional context
+    Many of the considerations an architect must make aren’t explicitly expressed in requirements but rather by implicit knowledge of the problem domain</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://nealford.com/katas/">For more details check katas</a></p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>There are no wrong answers in architecture, only expensive ones.</p>
+</div>
+</blockquote>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-05 03:02:22 +0300
+Last updated 2022-10-07 04:06:16 +0300
 </div>
 </div>
 </body>
