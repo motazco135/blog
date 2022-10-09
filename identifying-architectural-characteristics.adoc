@@ -92,3 +92,5 @@ https://nealford.com/katas/[For more details check katas]
 ____
 There are no wrong answers in architecture, only expensive ones.
 ____
+
+https://motazco135.github.io/blog/[<-Back]

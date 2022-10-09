@@ -67,3 +67,5 @@ Never shoot for the best architecture, but rather the least worst architecture.
 
 Architect should design architecture to as iterative as possible,you can't discover the exact correct thing in the first attempt.
 
+https://motazco135.github.io/blog/[<-Back]
+
