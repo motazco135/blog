@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
 <meta name="author" content="Motaz Mohammad">
-<title>Motaz Mohammad Blog</title>
+<title>Measuring and Governing Architecture Characteristics</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -440,7 +440,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Motaz Mohammad Blog</h1>
+<h1>Measuring and Governing Architecture Characteristics</h1>
 <div class="details">
 <span id="author" class="author">Motaz Mohammad</span><br>
 <span id="email" class="email"><a href="mailto:motazco135@gmail.com">motazco135@gmail.com</a></span><br>
@@ -448,46 +448,151 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_about">About</a></li>
-<li><a href="#_blog">Blog</a></li>
+<li><a href="#_measuring_architecture_characteristics">Measuring Architecture Characteristics</a>
+<ul class="sectlevel2">
+<li><a href="#_operational_measures">Operational Measures</a></li>
+<li><a href="#_structural_measures">Structural Measures</a></li>
+<li><a href="#_process_measures">Process Measures</a></li>
+</ul>
+</li>
+<li><a href="#_governance_and_fitness_functions">Governance and Fitness Functions</a>
+<ul class="sectlevel2">
+<li><a href="#_governing_architecture_characteristics">Governing Architecture Characteristics</a></li>
+<li><a href="#_fitness_functions">Fitness Functions</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_about">About</h2>
+<h2 id="_measuring_architecture_characteristics">Measuring Architecture Characteristics</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Solution Architect with board understanding of software lifecycle and solution architectures.</p>
+<p>Several common problems exist around the definition of architecture characteristics in organization:</p>
+</div>
+<div class="listingblock">
+<div class="title">They aren&#8217;t physics:</div>
+<div class="content">
+<pre>Architecture characteristics in common usage have a vague meanings.</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Wildly varying definitions:</div>
+<div class="content">
+<pre>Some times architecture characcters meanning and definition may be diffrent in the same organization for teh same feature,Untile unify a common difinition a proper conversation is difficult.</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Too composite:</div>
+<div class="content">
+<pre>Many architecture characcters guarantly many others at a smaller scale.For example, developers can decompose agility into characteristics shuch as modularity, deployability, and testability.</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>During my studies and work experience , I have had the opportunity to hone my skills with these languages/frameworks : Java, EJB, Spring framework, Spring Boot, Spring Security, JPA, Hibernate, JSF, PrimeFaces, GWT, JAXP, REST/SOAP Web Services, JSON, XML, Apache Lucene, Apache Solr, Apache Struts, HBASE Android Programming, Objective-c, AngularJS, ionic,React and go.</p>
+<p>All three problems can be solved by agreeing organization-wide on concrete definitions for architecture characteristics, teams will create a domain language around architecture .</p>
+</div>
+<div class="sect2">
+<h3 id="_operational_measures">Operational Measures</h3>
+<div class="paragraph">
+<p>Many architecture characteristics have obvious direct measurements, such as performance or scalability.
+Depending on the team goal&#8217;s and understanding of this characteristics measurements may be changed.
+Many of the architecture characteristics may have multible , nuanced difinition.
+Performance is a grate  example, Many project&#8217;s look at general performance: for example, how long request and response cycles take for a web application.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_structural_measures">Structural Measures</h3>
+<div class="paragraph">
+<p>Some objective measures  are  not so obvious a performance. what about internal structural characteristics, such as modularity?
+some metrics  and common tools do allow architects to  address some critical aspects  of code structure, albeit along narrow dimensions. An obvious measurable aspects of code is complexity, defined by the <strong><a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity"><mark>cyclomatic complexity metric (CC)</a></mark></strong>.</p>
+</div>
+<div class="paragraph">
+<p>Architects and developers universally agree that overlay complex code represents a code smell.if team did not keep an eye on gradually growing complexity, that complexity will dominate the code base.</p>
+</div>
+<div class="paragraph">
+<p>In general the industry  threasholds  for CC sugessted that a value under 10 is acceptable , but also it depends on the complexty of the problem domain.</p>
+</div>
+<div class="paragraph">
+<p>Engineering practices like test-driven development (TDD) have the  accidental side effect of generating smaller, less complex methods in a positive way for a given problem domain.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_process_measures">Process Measures</h3>
+<div class="paragraph">
+<p>Some architecture characteristics interact with software development process, For example, agility often appears as a desirable feature. However it is a composite architecture characteristics that architects may decompse into features such as testability and deploy-ability.</p>
+</div>
+<div class="paragraph">
+<p>Testability is measurable through he code coverage tools,however a code base can have 100% code coverage yet poor assertions that don&#8217;t actually provide confidence in code correctness.</p>
+</div>
+<div class="paragraph">
+<p>Deploy-ability the team can measure deploy-ability vis a variety of metrics: percentage of successful to failed deployments, how long the deployments take and issue number/bugs raised by deployments</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_blog">Blog</h2>
+<h2 id="_governance_and_fitness_functions">Governance and Fitness Functions</h2>
 <div class="sectionbody">
-<div class="ulist">
-<div class="title">Architecture</div>
-<ul>
-<li>
-<p><a href="https://motazco135.github.io/blog/architecture-characteristics.html">Architecture Characteristics</a></p>
-</li>
-<li>
-<p><a href="https://motazco135.github.io/blog/identifying-architectural-characteristics.html">Identifying Architectural Characteristics</a></p>
-</li>
-<li>
-<p><a href="https://motazco135.github.io/blog/measuring-and-governing-architecture-characteristics.html">Measuring and Governing Architecture Characteristics</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Once architects have establish the architecture characteristics and prioritized them, how they make sure that developers will respect those properties?</p>
+</div>
+<div class="sect2">
+<h3 id="_governing_architecture_characteristics">Governing Architecture Characteristics</h3>
+<div class="paragraph">
+<p>Governing is an important responsibility of the architect role.
+The scope of architecture governance covers any aspect of the software development process that architects want to exert aand influence upon.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fitness_functions">Fitness Functions</h3>
+<div class="paragraph">
+<p>Fitness Function: an object function used to assess how close the output comes to achieving the aim.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 1. Example</div>
+<div class="content">
+<div class="paragraph">
+<p>When developer ty to design an algorithm in a genetic way to solve the problem he needs to define the fitness functions to  evaluate the generic solution and is the output is the expected result of the witten algorithm or not .</p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Architecture Fitness Function:</div>
+<div class="content">
+<pre>Any mechanism that provides an objective integrity assessment of some architecture characteristic or combination of architecture characteristics</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Architecture Fitness Function are not a framework for architects, it is a verification techniques for architecture characteristics.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Architects must ensure that developers understand the purpose of the fitness function before imposing it on them.</p>
+</div>
+</blockquote>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://www.archunit.org">ArchUnit</a>, a java testing freamworek provide a variety of predefined governance rule codified as unit tests and allow architects to write specific tests that address modularity.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Fitness Functions is like a checklist that provide a mechanism for architects to express important architectural principles and automatically verify them.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://motazco135.github.io/blog/">&#8592;Back</a></p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-10 00:20:25 +0300
+Last updated 2022-10-10 03:57:41 +0300
 </div>
 </div>
 </body>

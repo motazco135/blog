@@ -16,3 +16,7 @@ During my studies and work experience , I have had the opportunity to hone my sk
 * https://motazco135.github.io/blog/architecture-characteristics.html[Architecture Characteristics]
 
 * https://motazco135.github.io/blog/identifying-architectural-characteristics.html[Identifying Architectural Characteristics]
+
+* https://motazco135.github.io/blog/measuring-and-governing-architecture-characteristics.html[Measuring and Governing Architecture Characteristics]
+
+

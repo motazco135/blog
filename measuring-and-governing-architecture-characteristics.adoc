@@ -1,0 +1,87 @@
+= Measuring and Governing Architecture Characteristics
+Motaz Mohammad <motazco135@gmail.com>
+:toc:
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+
+== Measuring Architecture Characteristics
+
+Several common problems exist around the definition of architecture characteristics in organization:
+
+.They aren't physics:
+----
+Architecture characteristics in common usage have a vague meanings.
+----
+.Wildly varying definitions:
+----
+Some times architecture characcters meanning and definition may be diffrent in the same organization for teh same feature,Untile unify a common difinition a proper conversation is difficult.
+----
+.Too composite:
+----
+Many architecture characcters guarantly many others at a smaller scale.For example, developers can decompose agility into characteristics shuch as modularity, deployability, and testability.
+----
+
+All three problems can be solved by agreeing organization-wide on concrete definitions for architecture characteristics, teams will create a domain language around architecture .
+
+=== Operational Measures
+Many architecture characteristics have obvious direct measurements, such as performance or scalability.
+Depending on the team goal's and understanding of this characteristics measurements may be changed.
+Many of the architecture characteristics may have multible , nuanced difinition.
+Performance is a grate  example, Many project's look at general performance: for example, how long request and response cycles take for a web application.
+
+=== Structural Measures
+Some objective measures  are  not so obvious a performance. what about internal structural characteristics, such as modularity?
+some metrics  and common tools do allow architects to  address some critical aspects  of code structure, albeit along narrow dimensions. An obvious measurable aspects of code is complexity, defined by the *https://en.wikipedia.org/wiki/Cyclomatic_complexity[#cyclomatic complexity metric (CC)]#*.
+
+Architects and developers universally agree that overlay complex code represents a code smell.if team did not keep an eye on gradually growing complexity, that complexity will dominate the code base.
+
+In general the industry  threasholds  for CC sugessted that a value under 10 is acceptable , but also it depends on the complexty of the problem domain.
+
+Engineering practices like test-driven development (TDD) have the  accidental side effect of generating smaller, less complex methods in a positive way for a given problem domain.
+
+=== Process Measures
+Some architecture characteristics interact with software development process, For example, agility often appears as a desirable feature. However it is a composite architecture characteristics that architects may decompse into features such as testability and deploy-ability.
+
+Testability is measurable through he code coverage tools,however a code base can have 100% code coverage yet poor assertions that don't actually provide confidence in code correctness.
+
+Deploy-ability the team can measure deploy-ability vis a variety of metrics: percentage of successful to failed deployments, how long the deployments take and issue number/bugs raised by deployments
+
+== Governance and Fitness Functions
+
+Once architects have establish the architecture characteristics and prioritized them, how they make sure that developers will respect those properties?
+
+=== Governing Architecture Characteristics
+Governing is an important responsibility of the architect role.
+The scope of architecture governance covers any aspect of the software development process that architects want to exert aand influence upon.
+
+=== Fitness Functions
+Fitness Function: an object function used to assess how close the output comes to achieving the aim.
+
+.Example
+====
+When developer ty to design an algorithm in a genetic way to solve the problem he needs to define the fitness functions to  evaluate the generic solution and is the output is the expected result of the witten algorithm or not .
+====
+
+.Architecture Fitness Function:
+----
+Any mechanism that provides an objective integrity assessment of some architecture characteristic or combination of architecture characteristics
+----
+
+Architecture Fitness Function are not a framework for architects, it is a verification techniques for architecture characteristics.
+
+
+[quote]
+____
+Architects must ensure that developers understand the purpose of the fitness function before imposing it on them.
+____
+
+
+[quote]
+____
+https://www.archunit.org[ArchUnit], a java testing freamworek provide a variety of predefined governance rule codified as unit tests and allow architects to write specific tests that address modularity.
+____
+
+Fitness Functions is like a checklist that provide a mechanism for architects to express important architectural principles and automatically verify them.
+
+
+https://motazco135.github.io/blog/[<-Back]
