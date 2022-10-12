@@ -1,0 +1,68 @@
+= Scope of Architecture Characteristics
+Motaz Mohammad <motazco135@gmail.com>
+:toc:
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+
+When evaluating man operational architecture characteristics, an architect must consider dependent components outside the code base that will impact those characteristics.
+
+== Coupling and Connascence
+.Connascence
+----
+Two components are connascent if a change in one would requier that other to be modified in order to maintain the overall correcteness of the system.
+----
+
+.Connascence Types :
+* Static: discoverable vis static code analysis.
+* Dynamic: concerning runtime behavior.
+
+To define the architecture quantum we needed a measure of how components are "wired" together., which corresponds to the connascence concept.
+
+.Example Static Connascence Type
+====
+If two services in a microservice architecture share the same class definition of the same class we say they are statically connascent with each other-changing the shared calss requires changes to both services.
+====
+
+.Dynamic connascence Types :
+* Synchronous
+* Asynchronous
+
+.Example Dynamic Connascence Type
+====
+Synchronous calls between thw distributed services have the  caller waite for the respone from the callee.
+
+Asynchronous calls allow fire-and -forget semantics in event-driven architecture, allow tow diffrent service to differ in operational architecture.
+====
+
+== Architectural Quanta and Granularity
+Component level coupling isn't the only thing to bind software together.
+
+Many business concepts semantically bind parts of the system together, creating functional cohesion.
+
+.Architecture Quantum
+----
+An indepentaly deployable srtifact with high functional choesion and synchrous connascence.
+----
+The above definition of architecture quantum contains several parts described as following :
+
+.Independently deployable
+****
+An architecture quantum includes all the necessary components to function independently form other parts of the architecture.
+
+Fore example, if an application uses a database it is part of the quantum because the system won't function without it.
+In microservice architecture style, each service includes its own database, creating multiple quantum with in that architecture.
+****
+
+.High functional cohesion
+****
+High functional cohesion implies that architecture quantum dose something purposeful.
+****
+
+.Synchronous connascence
+****
+Synchronous connascence implies synchronous calls within an application context or between distributed service that form this architecture quantum.
+
+For example, if one service calls another one synchronously, each service cannot exhibit extreme differences in operational architecture characteristic. if the caller is much more scalable that the callee, timeout and other reliability concerns will occur.
+****
+
+https://motazco135.github.io/blog/[<-Back]

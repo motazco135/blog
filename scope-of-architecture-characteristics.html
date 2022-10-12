@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
 <meta name="author" content="Motaz Mohammad">
-<title>Motaz Mohammad Blog</title>
+<title>Scope of Architecture Characteristics</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -440,7 +440,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Motaz Mohammad Blog</h1>
+<h1>Scope of Architecture Characteristics</h1>
 <div class="details">
 <span id="author" class="author">Motaz Mohammad</span><br>
 <span id="email" class="email"><a href="mailto:motazco135@gmail.com">motazco135@gmail.com</a></span><br>
@@ -448,49 +448,132 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_about">About</a></li>
-<li><a href="#_blog">Blog</a></li>
+<li><a href="#_coupling_and_connascence">Coupling and Connascence</a></li>
+<li><a href="#_architectural_quanta_and_granularity">Architectural Quanta and Granularity</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_about">About</h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Solution Architect with board understanding of software lifecycle and solution architectures.</p>
-</div>
-<div class="paragraph">
-<p>During my studies and work experience , I have had the opportunity to hone my skills with these languages/frameworks : Java, EJB, Spring framework, Spring Boot, Spring Security, JPA, Hibernate, JSF, PrimeFaces, GWT, JAXP, REST/SOAP Web Services, JSON, XML, Apache Lucene, Apache Solr, Apache Struts, HBASE Android Programming, Objective-c, AngularJS, ionic,React and go.</p>
+<p>When evaluating man operational architecture characteristics, an architect must consider dependent components outside the code base that will impact those characteristics.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_blog">Blog</h2>
+<h2 id="_coupling_and_connascence">Coupling and Connascence</h2>
 <div class="sectionbody">
+<div class="listingblock">
+<div class="title">Connascence</div>
+<div class="content">
+<pre>Two components are connascent if a change in one would requier that other to be modified in order to maintain the overall correcteness of the system.</pre>
+</div>
+</div>
 <div class="ulist">
-<div class="title">Architecture</div>
+<div class="title">Connascence Types :</div>
 <ul>
 <li>
-<p><a href="https://motazco135.github.io/blog/architecture-characteristics.html">Architecture Characteristics</a></p>
+<p>Static: discoverable vis static code analysis.</p>
 </li>
 <li>
-<p><a href="https://motazco135.github.io/blog/identifying-architectural-characteristics.html">Identifying Architectural Characteristics</a></p>
-</li>
-<li>
-<p><a href="https://motazco135.github.io/blog/measuring-and-governing-architecture-characteristics.html">Measuring and Governing Architecture Characteristics</a></p>
-</li>
-<li>
-<p><a href="https://motazco135.github.io/blog/scope-of-architecture-characteristics">Scope of Architecture Characteristics</a></p>
+<p>Dynamic: concerning runtime behavior.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>To define the architecture quantum we needed a measure of how components are "wired" together., which corresponds to the connascence concept.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 1. Example Static Connascence Type</div>
+<div class="content">
+<div class="paragraph">
+<p>If two services in a microservice architecture share the same class definition of the same class we say they are statically connascent with each other-changing the shared calss requires changes to both services.</p>
+</div>
+</div>
+</div>
+<div class="ulist">
+<div class="title">Dynamic connascence Types :</div>
+<ul>
+<li>
+<p>Synchronous</p>
+</li>
+<li>
+<p>Asynchronous</p>
+</li>
+</ul>
+</div>
+<div class="exampleblock">
+<div class="title">Example 2. Example Dynamic Connascence Type</div>
+<div class="content">
+<div class="paragraph">
+<p>Synchronous calls between thw distributed services have the  caller waite for the respone from the callee.</p>
+</div>
+<div class="paragraph">
+<p>Asynchronous calls allow fire-and -forget semantics in event-driven architecture, allow tow diffrent service to differ in operational architecture.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architectural_quanta_and_granularity">Architectural Quanta and Granularity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Component level coupling isn&#8217;t the only thing to bind software together.</p>
+</div>
+<div class="paragraph">
+<p>Many business concepts semantically bind parts of the system together, creating functional cohesion.</p>
+</div>
+<div class="listingblock">
+<div class="title">Architecture Quantum</div>
+<div class="content">
+<pre>An indepentaly deployable srtifact with high functional choesion and synchrous connascence.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above definition of architecture quantum contains several parts described as following :</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Independently deployable</div>
+<div class="paragraph">
+<p>An architecture quantum includes all the necessary components to function independently form other parts of the architecture.</p>
+</div>
+<div class="paragraph">
+<p>Fore example, if an application uses a database it is part of the quantum because the system won&#8217;t function without it.
+In microservice architecture style, each service includes its own database, creating multiple quantum with in that architecture.</p>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">High functional cohesion</div>
+<div class="paragraph">
+<p>High functional cohesion implies that architecture quantum dose something purposeful.</p>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synchronous connascence</div>
+<div class="paragraph">
+<p>Synchronous connascence implies synchronous calls within an application context or between distributed service that form this architecture quantum.</p>
+</div>
+<div class="paragraph">
+<p>For example, if one service calls another one synchronously, each service cannot exhibit extreme differences in operational architecture characteristic. if the caller is much more scalable that the callee, timeout and other reliability concerns will occur.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://motazco135.github.io/blog/">&#8592;Back</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-12 21:22:25 +0300
+Last updated 2022-10-12 23:08:49 +0300
 </div>
 </div>
 </body>
