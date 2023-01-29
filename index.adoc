@@ -21,5 +21,8 @@ During my studies and work experience , I have had the opportunity to hone my sk
 
 * https://motazco135.github.io/blog/scope-of-architecture-characteristics.html[Scope of Architecture Characteristics]
 
+* https://motazco135.github.io/blog/component-based-thinking.html[Component-Based Thinking]
+
+
 
 

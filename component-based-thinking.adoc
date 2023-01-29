@@ -1,0 +1,105 @@
+= Component-Based Thinking
+Motaz Mohammad <motazco135@gmail.com>
+:toc:
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+
+Modules is a collection of related code, Developers physically package modules in different ways depending on their development platform.But what about architectural considration around components?
+
+== Component Scope
+Component can be a service or a library ..etc, Components offer a language specific mechanism to group artifacts together, offering nesting them to create stratification.
+
+== Architect Role
+The architect defines,refines, manages and governs components within an architecture.
+
+Architecture is independent from the development process. The primary exception toi this rule entails the engineering practices pioneered in the various flavors of Agile software development, particularly in the areas of deployment and automating governance.
+
+An architect must identify components as one of the first tasks on a new project. But before an architect can identify components, they ,must know how to partition the architecture.
+
+=== Architecture Partitioning
+The *_Top-level partitioning_* in an architecture.
+
+.Two types of top-level architecture partitioning:
+* Layered
+* Modular
+
+.Layered
+----
+A single deployment unit associated with with a database and partionated around that similar functionalities are organized into horizintal layers, each layer perform a spacific role within the application.
+----
+.Modular
+----
+A single deployment unit associated with a database and partionated around domain rather than technichal capabilities.
+----
+
+One of the fundamental distinction between different architecture patterns is what type of top-level partitioning each supports.
+
+Technical partitioning organizer the components of the system by technical capabilities, the separation enforced by technical partitioning enables developers to find certain categories of the code base quickly as it is organized by capabilities.
+
+== Developer Role
+Developer take components, jointly designed with the architect role, and further subdivide them into classes, functions or subcomponents.
+
+In general lass and function design is the shared responsibility of architects,tech lead and developers.
+
+Developer should never take components designed by architects as the last word, all software design benefits from iteration.
+
+== Component Identification Flow
+Component identification works best as an iterative process, producing candidates and refinements through feedback illustrated in Figure 1.
+
+.Image caption
+image::resources/Figure-1.png[Component identification cycle]
+
+This cycle describes a generic architecture exposition cycle.
+Description of each step in Figure 1 appears  in the following sections.
+
+=== Identifying Initial Components
+Before any code exists for a software project, the architect must determine what top-level components to begin with, absed on what type of top-level partitioning they choose.
+
+The likelihood of achieving a good design from this initial set of components is disparagingly small, which is why architects must iterate on component design to improve it .
+
+=== Assign Requirements to Components
+Once the architect identified initial components, the next step aligns requirements to those components to see how well they fit.
+
+This may result to creating new component, consolidating existing once, or breaking components apart because they have too much responsibility.
+
+=== Analyze Roles and Responsibility
+When assigning user stories toi  components the architecture also  looks at the roles and responsibilities explained during the requirements to make sure that the granularity matches
+
+=== Analyze Architecture Characteristics
+The architecture should also look at the architecture characteristics discovered earlier in order to think about how they might impact component division and granularity.
+
+=== Restructure Components
+Feedback is critical in software design. Thus,architects must continually iterate on their component design with developers.
+
+== Component Granularity
+Finding the proper granularity for components is one of architect's most difficult tasks. Too fine-grained a component design leads to too much communication between components to achieve results.
+
+Too carose-grained components encourage high internal coupling,which leads to difficulties in deploy-ability and testability.
+
+== Component Design
+No accepted  "correct" way exists to design components. Rather , a wide variety of techniques exist, all with various trade-offs.
+
+=== Discovering Components
+Architects , often in collaboration with other roles such as developers, business analysts, and subject-matter experts, create an initial component design based on general knowledge of the system and how they choose to decompose it.
+
+.Entity trap
+While there is  no one way to  ascertain components, a common anti-pattern lurks: the Entity trap, the architecture has basically taken each entity identified in the requierments and made a manager component based on that entity.
+This isn't an architecture it is more object relational mapping.
+
+The Entity trap anti-pattern arises when an architect incorrectly identifies the database relationships as workflows in the application, a correspondence that rarely manifests in the real world.
+
+.Actor trap/Actions approach
+This approach is a popular way that architects use to map requirements to components.
+Architects identify actors who perform activities with application and actions those actors may perform.
+
+.Event storming
+Event storming as a component discovery technique comes from domain-driven design., the architect assumes the project will use messages and events to/or event to communicate between components .To that end teams tries to determine which events occurs in the system and based on requirements and identified roles and build components around those events and message handlers. This approche work well in distributed architecture like microservices.
+
+.Workflow approach
+An alternative to event storming offers a more generic approach for architects not using DDD or messaging. Workflow approach models components around work flows, much like event storming , but without the explicit constants of building a message based system.
+
+----
+As Architect, don't obsess over finding the one true design, becouse many will suffice(and less likely overengineerd). Rather try to objectively assess the tradeoffs between different design decisions , and choose the one that has the least worst set of trade-offs.
+----
+
+https://motazco135.github.io/blog/[<-Back]

@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="author" content="Motaz Mohammad">
-<title>Motaz Mohammad Blog</title>
+<title>Component-Based Thinking</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -85,10 +85,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -440,7 +440,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Motaz Mohammad Blog</h1>
+<h1>Component-Based Thinking</h1>
 <div class="details">
 <span id="author" class="author">Motaz Mohammad</span><br>
 <span id="email" class="email"><a href="mailto:motazco135@gmail.com">motazco135@gmail.com</a></span><br>
@@ -448,52 +448,222 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_about">About</a></li>
-<li><a href="#_blog">Blog</a></li>
+<li><a href="#_component_scope">Component Scope</a></li>
+<li><a href="#_architect_role">Architect Role</a>
+<ul class="sectlevel2">
+<li><a href="#_architecture_partitioning">Architecture Partitioning</a></li>
+</ul>
+</li>
+<li><a href="#_developer_role">Developer Role</a></li>
+<li><a href="#_component_identification_flow">Component Identification Flow</a>
+<ul class="sectlevel2">
+<li><a href="#_identifying_initial_components">Identifying Initial Components</a></li>
+<li><a href="#_assign_requirements_to_components">Assign Requirements to Components</a></li>
+<li><a href="#_analyze_roles_and_responsibility">Analyze Roles and Responsibility</a></li>
+<li><a href="#_analyze_architecture_characteristics">Analyze Architecture Characteristics</a></li>
+<li><a href="#_restructure_components">Restructure Components</a></li>
+</ul>
+</li>
+<li><a href="#_component_granularity">Component Granularity</a></li>
+<li><a href="#_component_design">Component Design</a>
+<ul class="sectlevel2">
+<li><a href="#_discovering_components">Discovering Components</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_about">About</h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Solution Architect with board understanding of software lifecycle and solution architectures.</p>
-</div>
-<div class="paragraph">
-<p>During my studies and work experience , I have had the opportunity to hone my skills with these languages/frameworks : Java, EJB, Spring framework, Spring Boot, Spring Security, JPA, Hibernate, JSF, PrimeFaces, GWT, JAXP, REST/SOAP Web Services, JSON, XML, Apache Lucene, Apache Solr, Apache Struts, HBASE Android Programming, Objective-c, AngularJS, ionic,React and go.</p>
+<p>Modules is a collection of related code, Developers physically package modules in different ways depending on their development platform.But what about architectural considration around components?</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_blog">Blog</h2>
+<h2 id="_component_scope">Component Scope</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Component can be a service or a library ..etc, Components offer a language specific mechanism to group artifacts together, offering nesting them to create stratification.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architect_role">Architect Role</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The architect defines,refines, manages and governs components within an architecture.</p>
+</div>
+<div class="paragraph">
+<p>Architecture is independent from the development process. The primary exception toi this rule entails the engineering practices pioneered in the various flavors of Agile software development, particularly in the areas of deployment and automating governance.</p>
+</div>
+<div class="paragraph">
+<p>An architect must identify components as one of the first tasks on a new project. But before an architect can identify components, they ,must know how to partition the architecture.</p>
+</div>
+<div class="sect2">
+<h3 id="_architecture_partitioning">Architecture Partitioning</h3>
+<div class="paragraph">
+<p>The <strong><em>Top-level partitioning</em></strong> in an architecture.</p>
+</div>
 <div class="ulist">
-<div class="title">Architecture</div>
+<div class="title">Two types of top-level architecture partitioning:</div>
 <ul>
 <li>
-<p><a href="https://motazco135.github.io/blog/architecture-characteristics.html">Architecture Characteristics</a></p>
+<p>Layered</p>
 </li>
 <li>
-<p><a href="https://motazco135.github.io/blog/identifying-architectural-characteristics.html">Identifying Architectural Characteristics</a></p>
-</li>
-<li>
-<p><a href="https://motazco135.github.io/blog/measuring-and-governing-architecture-characteristics.html">Measuring and Governing Architecture Characteristics</a></p>
-</li>
-<li>
-<p><a href="https://motazco135.github.io/blog/scope-of-architecture-characteristics.html">Scope of Architecture Characteristics</a></p>
-</li>
-<li>
-<p><a href="https://motazco135.github.io/blog/component-based-thinking.html">Component-Based Thinking</a></p>
+<p>Modular</p>
 </li>
 </ul>
+</div>
+<div class="listingblock">
+<div class="title">Layered</div>
+<div class="content">
+<pre>A single deployment unit associated with with a database and partionated around that similar functionalities are organized into horizintal layers, each layer perform a spacific role within the application.</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Modular</div>
+<div class="content">
+<pre>A single deployment unit associated with a database and partionated around domain rather than technichal capabilities.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>One of the fundamental distinction between different architecture patterns is what type of top-level partitioning each supports.</p>
+</div>
+<div class="paragraph">
+<p>Technical partitioning organizer the components of the system by technical capabilities, the separation enforced by technical partitioning enables developers to find certain categories of the code base quickly as it is organized by capabilities.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_developer_role">Developer Role</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Developer take components, jointly designed with the architect role, and further subdivide them into classes, functions or subcomponents.</p>
+</div>
+<div class="paragraph">
+<p>In general lass and function design is the shared responsibility of architects,tech lead and developers.</p>
+</div>
+<div class="paragraph">
+<p>Developer should never take components designed by architects as the last word, all software design benefits from iteration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_component_identification_flow">Component Identification Flow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Component identification works best as an iterative process, producing candidates and refinements through feedback illustrated in Figure 1.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="resources/Figure-1.png" alt="Component identification cycle">
+</div>
+<div class="title">Figure 1. Image caption</div>
+</div>
+<div class="paragraph">
+<p>This cycle describes a generic architecture exposition cycle.
+Description of each step in Figure 1 appears  in the following sections.</p>
+</div>
+<div class="sect2">
+<h3 id="_identifying_initial_components">Identifying Initial Components</h3>
+<div class="paragraph">
+<p>Before any code exists for a software project, the architect must determine what top-level components to begin with, absed on what type of top-level partitioning they choose.</p>
+</div>
+<div class="paragraph">
+<p>The likelihood of achieving a good design from this initial set of components is disparagingly small, which is why architects must iterate on component design to improve it .</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_assign_requirements_to_components">Assign Requirements to Components</h3>
+<div class="paragraph">
+<p>Once the architect identified initial components, the next step aligns requirements to those components to see how well they fit.</p>
+</div>
+<div class="paragraph">
+<p>This may result to creating new component, consolidating existing once, or breaking components apart because they have too much responsibility.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_analyze_roles_and_responsibility">Analyze Roles and Responsibility</h3>
+<div class="paragraph">
+<p>When assigning user stories toi  components the architecture also  looks at the roles and responsibilities explained during the requirements to make sure that the granularity matches</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_analyze_architecture_characteristics">Analyze Architecture Characteristics</h3>
+<div class="paragraph">
+<p>The architecture should also look at the architecture characteristics discovered earlier in order to think about how they might impact component division and granularity.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_restructure_components">Restructure Components</h3>
+<div class="paragraph">
+<p>Feedback is critical in software design. Thus,architects must continually iterate on their component design with developers.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_component_granularity">Component Granularity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Finding the proper granularity for components is one of architect&#8217;s most difficult tasks. Too fine-grained a component design leads to too much communication between components to achieve results.</p>
+</div>
+<div class="paragraph">
+<p>Too carose-grained components encourage high internal coupling,which leads to difficulties in deploy-ability and testability.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_component_design">Component Design</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>No accepted  "correct" way exists to design components. Rather , a wide variety of techniques exist, all with various trade-offs.</p>
+</div>
+<div class="sect2">
+<h3 id="_discovering_components">Discovering Components</h3>
+<div class="paragraph">
+<p>Architects , often in collaboration with other roles such as developers, business analysts, and subject-matter experts, create an initial component design based on general knowledge of the system and how they choose to decompose it.</p>
+</div>
+<div class="paragraph">
+<div class="title">Entity trap</div>
+<p>While there is  no one way to  ascertain components, a common anti-pattern lurks: the Entity trap, the architecture has basically taken each entity identified in the requierments and made a manager component based on that entity.
+This isn&#8217;t an architecture it is more object relational mapping.</p>
+</div>
+<div class="paragraph">
+<p>The Entity trap anti-pattern arises when an architect incorrectly identifies the database relationships as workflows in the application, a correspondence that rarely manifests in the real world.</p>
+</div>
+<div class="paragraph">
+<div class="title">Actor trap/Actions approach</div>
+<p>This approach is a popular way that architects use to map requirements to components.
+Architects identify actors who perform activities with application and actions those actors may perform.</p>
+</div>
+<div class="paragraph">
+<div class="title">Event storming</div>
+<p>Event storming as a component discovery technique comes from domain-driven design., the architect assumes the project will use messages and events to/or event to communicate between components .To that end teams tries to determine which events occurs in the system and based on requirements and identified roles and build components around those events and message handlers. This approche work well in distributed architecture like microservices.</p>
+</div>
+<div class="paragraph">
+<div class="title">Workflow approach</div>
+<p>An alternative to event storming offers a more generic approach for architects not using DDD or messaging. Workflow approach models components around work flows, much like event storming , but without the explicit constants of building a message based system.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>As Architect, don't obsess over finding the one true design, becouse many will suffice(and less likely overengineerd). Rather try to objectively assess the tradeoffs between different design decisions , and choose the one that has the least worst set of trade-offs.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://motazco135.github.io/blog/">&#8592;Back</a></p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-12 23:18:08 +0300
+Last updated 2023-01-23 23:57:38 +0300
 </div>
 </div>
 </body>
