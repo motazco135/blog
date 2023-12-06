@@ -551,3 +551,5 @@ You will notice that the message contains json object as following :
 The fraud tool will be able to use the data from the Kafka topic to begin creating the customer profile because we have now established a CDC data flow and are able to publish the data in almost real-time.
 
 Next, we'll look at how the established CDC can be used to build the Operational Data Store layer.
+
+https://motazco135.github.io/blog/[<-Back]
