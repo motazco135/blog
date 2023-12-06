@@ -26,5 +26,8 @@ During my studies and work experience , I have had the opportunity to hone my sk
 .OAuth2 and OpenID Connect
 * https://motazco135.github.io/blog/oauth2_and_openid.html[OAuth2 and OpenID Connect Introduction]
 
+.Change Data Capture With Debezium
+* https://motazco135.github.io/blog/debezium_cdc.html[Change Data Capture With Debezium]
+
 
 
