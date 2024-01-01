@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="author" content="Motaz Mohammed Sameh">
+<title>Operational Data Store(ODS)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+/*! Asciidoctor Tabs | Copyright (c) 2018-present Dan Allen | MIT License */
+.tabs {
+    margin-bottom: 1.25em;
+}
+
+.tablist > ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tablist > ul li {
+    align-items: center;
+    background-color: #fff;
+    cursor: pointer;
+    display: flex;
+    font-weight: bold;
+    line-height: 1.5;
+    padding: 0.25em 1em;
+    position: relative;
+}
+
+.tablist > ul li:focus-visible {
+    outline: none;
+}
+
+.tablist.ulist,
+.tablist.ulist > ul li {
+    margin: 0;
+}
+
+.tablist.ulist > ul li + li {
+    margin-left: 0.25em;
+}
+
+.tabs .tablist li::after {
+    content: "";
+    display: block;
+    height: 1px;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+}
+
+.tabs.is-loading .tablist li:not(:first-child),
+.tabs:not(.is-loading) .tablist li:not(.is-selected) {
+    background-color: #f5f5f5;
+}
+
+.tabs.is-loading .tablist li:first-child::after,
+.tabs:not(.is-loading) .tablist li.is-selected::after {
+    background-color: #fff;
+}
+
+/*
+.tabs:not(.is-loading) .tablist li,
+.tabs:not(.is-loading) .tablist li::after {
+  transition: background-color 200ms ease-in-out;
+}
+*/
+
+.tablist > ul p {
+    line-height: inherit;
+    margin: 0;
+}
+
+.tabpanel {
+    background-color: #fff;
+    padding: 1.25em;
+}
+
+.tablist > ul li,
+.tabpanel {
+    border: 1px solid #dcdcdc;
+}
+
+.tablist > ul li {
+    border-bottom: 0;
+}
+
+.tabs.is-loading .tabpanel + .tabpanel,
+.tabs:not(.is-loading) .tabpanel.is-hidden {
+    display: none;
+}
+
+.tabpanel > :first-child {
+    margin-top: 0;
+}
+
+/* #content is a signature of the Asciidoctor standalone HTML output */
+#content .tabpanel > :last-child,
+#content .tabpanel > :last-child > :last-child,
+#content .tabpanel > :last-child > :last-child > li:last-child > :last-child {
+    margin-bottom: 0;
+}
+
+.tablecontainer {
+    overflow-x: auto;
+}
+
+#content .tablecontainer {
+    margin-bottom: 1.25em;
+}
+
+#content .tablecontainer > table.tableblock {
+    margin-bottom: 0;
+}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Operational Data Store(ODS)</h1>
+<div class="details">
+<span id="author" class="author">Motaz Mohammed Sameh</span><br>
+<span id="email" class="email"><a href="mailto:Motazco135@gmail.com">Motazco135@gmail.com</a></span><br>
+<span id="revnumber">version 3.0,</span>
+<span id="revdate">July 29, 2022</span>
+<br><span id="revremark">AsciiDoc article template</span>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_what_is_operational_data_store_ods">What is Operational Data Store (ODS)</a>
+<ul class="sectlevel2">
+<li><a href="#_characteristics_of_an_operational_data_store">Characteristics of an Operational Data Store</a></li>
+</ul>
+</li>
+<li><a href="#_how_do_operational_data_stores_work">How do operational data stores work?</a></li>
+<li><a href="#_use_case">Use Case</a>
+<ul class="sectlevel2">
+<li><a href="#_set_up">Set UP</a></li>
+<li><a href="#_lets_define_the_ods_schema">Let&#8217;s Define the ODS Schema</a></li>
+<li><a href="#_flink_job">Flink Job</a></li>
+</ul>
+</li>
+<li><a href="#_summary">Summary</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In our previous <a href="https://www.linkedin.com/pulse/change-data-capture-debezium-motaz-mohammed-sameh-gqmif?trackingId=a2Ojn5KCRauNGwMi4617mA%3D%3D&amp;lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_recent_activity_content_view%3BIEQlFFJgQcWjju%2F7jGUngQ%3D%3D">Article</a> we see what is the Change Data Chapter (CDC) and what is the  need for it.<br></p>
+</div>
+<div class="paragraph">
+<p>In this article we will see how we can benefit from the Changer Data Capture (CDC) flow that we have build to build an Operational Data Store (ODS).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_operational_data_store_ods">What is Operational Data Store (ODS)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An operational data store (ODS) is a central database that provides a snapshot of the latest data from multiple transactional systems.<br>
+It is used for operational reporting and as a source of data for the Enterprise Data warehouse.<br>
+It enables organization to combine data in its original format from various sources into a single destination.</p>
+</div>
+<div class="sect2">
+<h3 id="_characteristics_of_an_operational_data_store">Characteristics of an Operational Data Store</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Real-Time or Near-Real-Time Data:<br>
+ODS is designed to capture and integrate data from different operational systems in close to real-time. This allows organizations to have up-to-date information for reporting and analysis.</p>
+</li>
+<li>
+<p>Integration Hub:<br>
+It acts as a central hub for integrating data from various sources and external data feeds.</p>
+</li>
+<li>
+<p>Simplified and Aggregated Data:<br>
+ODS often involves data transformation and aggregation to present a simplified and unified view of the operational data. This can make it easier for reporting and analysis compared to raw data from source systems.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_do_operational_data_stores_work">How do operational data stores work?</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="resources/ods/ods-1.png" alt="How ODS Work">
+</div>
+<div class="title">Figure 1. How ODS Work</div>
+</div>
+<div class="paragraph">
+<p>An operational data store efficiently synthesizes and displays data to update you with the latest data. First, an operational data store collects data from many different sources. it collects the data from whatever sources you choose and makes it available for business intelligence functions.</p>
+</div>
+<div class="paragraph">
+<p>Afterward, people across functions within your organization can view it for different business purposes. You can also leverage it to send timely notifications and emails to your integrated applications.</p>
+</div>
+<div class="paragraph">
+<p>Operational data stores are for <mark>real-time</mark> data only. When an operational data store brings in new data, it erases the previously written data. If the source data changes or updates, the data store displays that new data.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_use_case">Use Case</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As in our previous use case we built a Change Data Capture (CDC) flow and use it in monitoring customer transaction behaviour.
+new we will build Operational Data Store (ODS) layer that will enable out mobile app to show a comprehensive dashboard view that provide customers with real time insights into their financial status and activities.<br></p>
+</div>
+<div class="paragraph">
+<p>This dashboard could include the following :<br></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Customer Profile information : </strong>Basic details like name, contact information.</p>
+</li>
+<li>
+<p><strong>Account Overview:</strong> Current balance, account type, and other relevant details for each account.</p>
+</li>
+<li>
+<p><strong>Recent Transactions: </strong>A list of recent transactions for each account, including amounts, dates, and types (deposit, withdrawal).</p>
+</li>
+<li>
+<p><strong>Aggregated Financial Insights:</strong> Summaries like total balance across all accounts, average monthly spending, recent large transactions, etc.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We will use Apache Flink to build our ODS Layer,
+and we will write some source code  to provide our mobile app the required information to build the dashboard.</p>
+</div>
+<div class="sect2">
+<h3 id="_set_up">Set UP</h3>
+<div class="paragraph">
+<p>We already finished the setup for most of our environment
+please refer to  the Docker Compose file in the previous <a href="https://www.linkedin.com/pulse/change-data-capture-debezium-motaz-mohammed-sameh-gqmif%3FtrackingId=lhHqu3HlQbaJNayC%252FRH7Gg%253D%253D/?trackingId=lhHqu3HlQbaJNayC%2FRH7Gg%3D%3D">Article</a>.</p>
+</div>
+<div class="paragraph">
+<p>also we will need to set up Apache flink, please follow the steps in the following <a href="https://nightlies.apache.org/flink/flink-docs-stable/docs/try-flink/local_installation/">Link</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lets_define_the_ods_schema">Let&#8217;s Define the ODS Schema</h3>
+<div class="paragraph">
+<p>Based on our use case we will do the following :</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We create a new schema for the ODS
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Denormalize Customer-Account Table</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Combines customer and account details for quick access.</p>
+</li>
+<li>
+<p>Fields: 'customer_id', 'customer_name', 'email','mobile','account_id', 'account_number','account_status' and 'account_balance'</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> ods_schema.customer_account
+(
+    customer_id     <span style="color:#0a8;font-weight:bold">integer</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    customer_name   <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    email           <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    mobile          <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    account_id      <span style="color:#0a8;font-weight:bold">integer</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    account_number  <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
+        <span style="color:#339;font-weight:bold">constraint</span> customer_account_pk
+            <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span>,
+    account_status  <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    account_balance <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    updated_at <span style="color:#0a8;font-weight:bold">timestamp</span> <span style="color:#088;font-weight:bold">default</span> CURRENT_TIMESTAMP
+);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Transaction Table</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Stores individual transactions.</p>
+</li>
+<li>
+<p>Fields: 'transaction_id', 'transaction_ref_number','transaction_amount','transaction_type', 'account_number','transaction_date'.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> ods_schema.T_Transaction
+(
+    transaction_id         serial    <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
+        <span style="color:#339;font-weight:bold">constraint</span> T_Transaction_pk
+            <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span>,
+    transaction_ref_number <span style="color:#0a8;font-weight:bold">varchar</span>   <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    transaction_amount     <span style="color:#0a8;font-weight:bold">varchar</span>   <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    transaction_type       <span style="color:#0a8;font-weight:bold">varchar</span>   <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    account_number         <span style="color:#0a8;font-weight:bold">varchar</span>   <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    transaction_date       <span style="color:#0a8;font-weight:bold">timestamp</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
+);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Aggregated Financial Insights Table</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Stores pre-calculated financial insights for quick access.</p>
+</li>
+<li>
+<p>Fields: customer_id, total_balance, average_monthly_spending</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> ods_schema.T_financial_insights
+(
+    customer_id              <span style="color:#0a8;font-weight:bold">integer</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
+        <span style="color:#339;font-weight:bold">constraint</span> T_financial_insights_pk
+            <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span>,
+    total_balance            <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
+    average_monthly_spending <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
+);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_flink_job">Flink Job</h3>
+<div class="paragraph">
+<p>Data Stream Programming prefers dealing with records as they arrived, however it comes with its complexity.  <br>
+Flink is a distributed data stream programming engine, it includes facilities for managing and distributing data stream operations.<br></p>
+</div>
+<div class="paragraph">
+<p>Flink unite is known as job, the job in java is a deployable jar in the flink cluster .<br></p>
+</div>
+<div class="paragraph">
+<p>Our Flink job will need the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create Java Project and SetUp Maven dependency.</p>
+</li>
+<li>
+<p>Read from each Kafka topic.</p>
+</li>
+<li>
+<p>Deserialize the data from the Avro format.</p>
+</li>
+<li>
+<p>Transform the data to match our ODS schema.</p>
+</li>
+<li>
+<p>Write the transformed data to the PostgreSQL database. <br></p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="ulist">
+<ul>
+<li>
+<p>Create Java Project and SetUp Maven dependency</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Flink provide Maven archetype to let you create Flink project for based on your flink version.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">mvn archetype:generate                               \
+  -DarchetypeGroupId=org.apache.flink               \
+  -DarchetypeArtifactId=flink-quickstart-java       \
+  -DarchetypeVersion=&lt;flink_version&gt;                \
+  -DgroupId=&lt;your-group-id&gt;                         \
+  -DartifactId=&lt;your-artifact-id&gt;                   \
+  -Dversion=&lt;your-version&gt;                          \
+  -Dpackage=&lt;your-package-name&gt;                     \
+  -DinteractiveMode=false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After the Project created you will found a sample flink jop created.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We use Java 11 version<br>
+To make the applications run within IDEA it is necessary to tick the Include dependencies with "Provided" scope.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now include the following dependency in you pom file :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>		&lt;dependency&gt;
+			&lt;groupId&gt;org.apache.flink&lt;/groupId&gt;
+			&lt;artifactId&gt;flink-avro-confluent-registry&lt;/artifactId&gt;
+			&lt;version&gt;${flink.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.apache.flink&lt;/groupId&gt;
+			&lt;artifactId&gt;flink-connector-kafka&lt;/artifactId&gt;
+			&lt;version&gt;${flink.version}&lt;/version&gt;
+		&lt;/dependency&gt;</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Read from each Kafka topic</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Flink provide a kafka connector for reading data from and write data to kafka topics with exactly-once guarantees.</p>
+</div>
+<div class="paragraph">
+<p>for more information about Kafka connector kindly check following Links:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://nightlies.apache.org/flink/flink-docs-release-1.18/docs/connectors/datastream/kafka/"> Apace Flink documentation</a></p>
+</li>
+<li>
+<p><a href="https://developer.confluent.io/courses/apache-flink/intro/">Confluent Apache Flink 101</a></p>
+</li>
+<li>
+<p><a href="https://developer.confluent.io/courses/flink-java/overview/">Building Apache Flink APPS in JAVA </a>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Now our data are published in three topic each topic have his own <a href="https://avro.apache.org/">apache avro</a> SCHEMA. you can download the topic schema from the confluent Control center <mark>"http://localhost:9021/clusters"</mark>
+copy the schema to your resource directory in the java project,
+we will use Apache avro maven plugin to generate java classes from the avro schema add the following  to your pom.xml</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span style="color:#777">&lt;!-- avro plugin  --&gt;</span>
+<span style="color:#070;font-weight:bold">&lt;plugin&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;groupId&gt;</span>org.apache.avro<span style="color:#070;font-weight:bold">&lt;/groupId&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;artifactId&gt;</span>avro-maven-plugin<span style="color:#070;font-weight:bold">&lt;/artifactId&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;version&gt;</span>1.11.1<span style="color:#070;font-weight:bold">&lt;/version&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;executions&gt;</span>
+        <span style="color:#070;font-weight:bold">&lt;execution&gt;</span>
+            <span style="color:#070;font-weight:bold">&lt;phase&gt;</span>generate-sources<span style="color:#070;font-weight:bold">&lt;/phase&gt;</span>
+            <span style="color:#070;font-weight:bold">&lt;goals&gt;</span>
+                <span style="color:#070;font-weight:bold">&lt;goal&gt;</span>schema<span style="color:#070;font-weight:bold">&lt;/goal&gt;</span>
+            <span style="color:#070;font-weight:bold">&lt;/goals&gt;</span>
+            <span style="color:#070;font-weight:bold">&lt;configuration&gt;</span>
+                <span style="color:#070;font-weight:bold">&lt;sourceDirectory&gt;</span>${project.basedir}/src/main/resources/avro/<span style="color:#070;font-weight:bold">&lt;/sourceDirectory&gt;</span>
+                <span style="color:#070;font-weight:bold">&lt;outputDirectory&gt;</span>${project.build.directory}/generated/avro<span style="color:#070;font-weight:bold">&lt;/outputDirectory&gt;</span>
+            <span style="color:#070;font-weight:bold">&lt;/configuration&gt;</span>
+        <span style="color:#070;font-weight:bold">&lt;/execution&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;/executions&gt;</span>
+<span style="color:#070;font-weight:bold">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now create a new class with main method this will contain our flink job,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"> <span style="color:#777">// Set up Flink execution environment</span>
+StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Setup properties that will have the connection to kafka properties</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">static</span> <span style="color:#0a8;font-weight:bold">Properties</span> getProperties() {
+        <span style="color:#0a8;font-weight:bold">Properties</span> props = <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">Properties</span>();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS_CONFIG);
+        <span style="color:#080;font-weight:bold">return</span> props;
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create kafka source as below we will need to create Kafka source for each kafka topic as below  :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="JAVA">KafkaSource&lt;GenericRecord&gt; accountKafkaSource = KafkaSource.&lt;GenericRecord&gt;builder()
+                .setProperties(properties)
+                .setTopics(KAFKA_TOPIC_ACCOUNT)
+                .setGroupId(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">flink-consumer-ods-account-group</span><span style="color:#710">&quot;</span></span>)
+                .setStartingOffsets(OffsetsInitializer.earliest())
+                .setValueOnlyDeserializer(ConfluentRegistryAvroDeserializationSchema.forGeneric(fulfillment.transactions_schema.T_Accounts.Envelope.SCHEMA<span style="color:#F00;background-color:#FAA">$</span>, SCHEMA_REGISTRY_URL)).build();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add the kafka source to the environment as following ,
+and we will create a mapper function to convert the avro scham class to our POJO class</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="JAVA">        <span style="color:#777">// Add sources to the environment</span>
+DataStream&lt;CustomerDto&gt; customerStream  = env.fromSource(customerKafkaSource, WatermarkStrategy.noWatermarks(), <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Customer Source</span><span style="color:#710">&quot;</span></span>)
+    .map(<span style="color:#080;font-weight:bold">new</span> MapFunction&lt;GenericRecord, CustomerDto&gt;() {
+                    <span style="color:#007">@Override</span>
+                    <span style="color:#088;font-weight:bold">public</span> CustomerDto map(GenericRecord genericRecord) <span style="color:#088;font-weight:bold">throws</span> <span style="color:#C00;font-weight:bold">Exception</span> {
+                        <span style="color:#080;font-weight:bold">return</span> mapToCustomerDto(genericRecord);
+                    }
+                });</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mapper function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">static</span> CustomerDto mapToCustomerDto(GenericRecord genericRecord) {
+        <span style="color:#080;font-weight:bold">return</span> Optional.ofNullable(genericRecord.get(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">after</span><span style="color:#710">&quot;</span></span>))
+                .map(afterRecord -&gt; (GenericRecord) afterRecord)
+                .map(after -&gt; CustomerDto.builder()
+                        .id(getIntValue(after, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">id</span><span style="color:#710">&quot;</span></span>))
+                        .firstName(getStringValue(after, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">first_name</span><span style="color:#710">&quot;</span></span>))
+                        .lastName(getStringValue(after, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">last_name</span><span style="color:#710">&quot;</span></span>))
+                        .email(getStringValue(after, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">email</span><span style="color:#710">&quot;</span></span>))
+                        .mobile(getStringValue(after, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">mobile</span><span style="color:#710">&quot;</span></span>))
+                        .createdAt(convertToLocalDateTime(getLongValue(after, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">created_at</span><span style="color:#710">&quot;</span></span>)))
+                        .updatedAt(convertToLocalDateTime(getLongValue(after, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">updated_at</span><span style="color:#710">&quot;</span></span>)))
+                        .build())
+                .orElse(<span style="color:#069">null</span>);
+    }
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">static</span> <span style="color:#0a8;font-weight:bold">String</span> getStringValue(GenericRecord record, <span style="color:#0a8;font-weight:bold">String</span> fieldName) {
+        <span style="color:#080;font-weight:bold">return</span> Optional.ofNullable(record.get(fieldName))
+                .map(<span style="color:#0a8;font-weight:bold">Object</span>::toString)
+                .orElse(<span style="color:#069">null</span>);
+    }
+
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">static</span> <span style="color:#0a8;font-weight:bold">Integer</span> getIntValue(GenericRecord record, <span style="color:#0a8;font-weight:bold">String</span> fieldName) {
+        <span style="color:#080;font-weight:bold">return</span> Optional.ofNullable(record.get(fieldName))
+                .map(<span style="color:#0a8;font-weight:bold">Object</span>::toString)
+                .map(<span style="color:#0a8;font-weight:bold">Integer</span>::valueOf)
+                .orElse(<span style="color:#069">null</span>);
+    }
+
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">static</span> <span style="color:#0a8;font-weight:bold">Long</span> getLongValue(GenericRecord record, <span style="color:#0a8;font-weight:bold">String</span> fieldName) {
+        <span style="color:#080;font-weight:bold">return</span> Optional.ofNullable(record.get(fieldName))
+                .map(<span style="color:#0a8;font-weight:bold">Object</span>::toString)
+                .map(<span style="color:#0a8;font-weight:bold">Long</span>::valueOf)
+                .orElse(<span style="color:#069">null</span>);
+    }
+
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">static</span> LocalDateTime convertToLocalDateTime(<span style="color:#339;font-weight:bold">long</span> input){
+        <span style="color:#777">// convert to milliseconds</span>
+        <span style="color:#339;font-weight:bold">long</span> millisecondTimestamp = input / <span style="color:#00D">1000</span>;
+        <span style="color:#777">// Create an Instant</span>
+        Instant instant = Instant.ofEpochMilli(millisecondTimestamp);
+        <span style="color:#777">// add extra microseconds precision to the Instant</span>
+        <span style="color:#339;font-weight:bold">long</span> microseconds = input % <span style="color:#00D">1000</span>;
+        instant = instant.plusNanos(microseconds * <span style="color:#00D">1000</span>);
+        <span style="color:#777">// Convert Instant to LocalDateTime via a ZonedDateTime</span>
+        <span style="color:#080;font-weight:bold">return</span> LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s execute our flink job and print the data stream, inorder to publish teh data to kafka topic we will run some update and insert statement on our database tables and our CDC will publish the data to kafka topic and our flink job will stream data from topic map it to POJO class and print it.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">accountStream.print();
+customerStream.print();
+transactionStream.print();
+<span style="color:#777">// Execute the job</span>
+env.execute(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Flink Multiple Kafka Sources</span><span style="color:#710">&quot;</span></span>);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>FLink Log :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">CustomerDto(id=1, firstName=motaz, lastName=motaz, email=motaz@test.com, mobile=2322323232, createdAt=2023-12-12T22:58:05.758176, updatedAt=2023-12-12T22:58:05.758176)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we have 3 data streams that contains Customer , accounts and transaction data.<br></p>
+</div>
+<div class="paragraph">
+<p>We will start building the Denormalize Customer-Account data by the following steps  :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Define Output Data Structure:</strong><br>
+We will create a class that will represent our denormalized data as the above table "customer_account"</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Builder</span>
+<span style="color:#007">@ToString</span>
+<span style="color:#007">@Setter</span>
+<span style="color:#007">@Getter</span>
+<span style="color:#007">@NoArgsConstructor</span>
+<span style="color:#007">@AllArgsConstructor</span>
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">CustomerAccountDto</span> {
+
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#0a8;font-weight:bold">Integer</span> customerId;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#0a8;font-weight:bold">String</span> customerName;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#0a8;font-weight:bold">String</span> email;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#0a8;font-weight:bold">String</span> mobile;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#0a8;font-weight:bold">String</span> accountId;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#0a8;font-weight:bold">String</span> accountStatus;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#0a8;font-weight:bold">String</span> accountBalance;
+    <span style="color:#088;font-weight:bold">private</span> LocalDateTime updatedAt;
+
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Create the Keyed Streams:</strong> Since we have the customer id in both streams and the denormalized table is a combination of both streams we will use the "Customer ID" to join the two streams,
+as this is how we&#8217;ll associate accounts with their respective customers.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">        DataStream&lt;CustomerDto&gt; customerStreamByKey = customerStream.keyBy(CustomerDto::getId);
+        DataStream&lt;AccountDto&gt; accountStreamByKey = accountStream.keyBy(AccountDto::getCustomerId);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Implement the Joining Logic:</strong>
+We will use Flink "CoProcessFunction" to join the latest customer and account information, as we receive the latest up-to-date data our state will maintain the latest, We are required to implement a mechanism for cleaning up state for customers or accounts that are no longer active or relevant, but it is not part of our POC .</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">CustomerAccountCoProcessFunction</span> <span style="color:#088;font-weight:bold">extends</span> CoProcessFunction&lt;CustomerDto, AccountDto, CustomerAccountDto&gt; {
+
+    <span style="color:#777">// State to hold the latest CustomerDto and AccountDto for each customer ID</span>
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">transient</span> ValueState&lt;CustomerDto&gt; customerState;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">transient</span> ValueState&lt;AccountDto&gt; accountState;
+
+    <span style="color:#007">@Override</span>
+    <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> open(<span style="color:#0a8;font-weight:bold">Configuration</span> parameters) {
+        customerState = getRuntimeContext().getState(<span style="color:#080;font-weight:bold">new</span> ValueStateDescriptor&lt;&gt;(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">customerState</span><span style="color:#710">&quot;</span></span>, CustomerDto.class));
+        accountState = getRuntimeContext().getState(<span style="color:#080;font-weight:bold">new</span> ValueStateDescriptor&lt;&gt;(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">accountState</span><span style="color:#710">&quot;</span></span>, AccountDto.class));
+    }
+
+    <span style="color:#007">@Override</span>
+    <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> processElement1(CustomerDto customer, CoProcessFunction&lt;CustomerDto, AccountDto, CustomerAccountDto&gt;.Context ctx, Collector&lt;CustomerAccountDto&gt; out) <span style="color:#088;font-weight:bold">throws</span> <span style="color:#C00;font-weight:bold">Exception</span> {
+        customerState.update(customer);
+        <span style="color:#777">// Attempt to join with the latest account</span>
+        AccountDto account = accountState.value();
+        <span style="color:#080;font-weight:bold">if</span> (account != <span style="color:#069">null</span>) {
+            out.collect(createDenormalized(customer, account));
+        }
+    }
+
+    <span style="color:#007">@Override</span>
+    <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> processElement2(AccountDto account, CoProcessFunction&lt;CustomerDto, AccountDto, CustomerAccountDto&gt;.Context ctx, Collector&lt;CustomerAccountDto&gt; out) <span style="color:#088;font-weight:bold">throws</span> <span style="color:#C00;font-weight:bold">Exception</span> {
+        accountState.update(account);
+        <span style="color:#777">// Attempt to join with the latest customer</span>
+        CustomerDto customer = customerState.value();
+        <span style="color:#080;font-weight:bold">if</span> (customer != <span style="color:#069">null</span>) {
+            out.collect(createDenormalized(customer, account));
+        }
+    }
+
+    <span style="color:#088;font-weight:bold">private</span> CustomerAccountDto createDenormalized(CustomerDto customer, AccountDto account) {
+        CustomerAccountDto denormalized = <span style="color:#080;font-weight:bold">new</span> CustomerAccountDto();
+        <span style="color:#777">// Set fields from CustomerDto</span>
+        denormalized.setCustomerId(customer.getId());
+        denormalized.setCustomerName(customer.getFirstName().concat(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> </span><span style="color:#710">&quot;</span></span>).concat(customer.getLastName()));
+        denormalized.setEmail(customer.getEmail());
+        denormalized.setMobile(customer.getMobile());
+
+        <span style="color:#777">// Set fields from AccountDto</span>
+        denormalized.setAccountId(account.getAccountNumber().toString());
+        denormalized.setAccountStatus(account.getAccountStatus());
+        denormalized.setAccountBalance(account.getAccountBalance());
+
+        <span style="color:#339;font-weight:bold">int</span> diff = customer.getUpdatedAt().compareTo(account.getUpdatedAt());
+        <span style="color:#080;font-weight:bold">if</span>(diff&gt;<span style="color:#00D">0</span>){
+            denormalized.setUpdatedAt(customer.getUpdatedAt());
+        }<span style="color:#080;font-weight:bold">else</span> <span style="color:#080;font-weight:bold">if</span> (diff &lt; <span style="color:#00D">0</span>) {
+            denormalized.setUpdatedAt(account.getUpdatedAt());
+        }<span style="color:#080;font-weight:bold">else</span>{ <span style="color:#777">//dates are equal</span>
+            denormalized.setUpdatedAt(account.getUpdatedAt());
+        }
+        <span style="color:#080;font-weight:bold">return</span> denormalized;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Connect the Streams and Apply the CoProcessFunction:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">        DataStream&lt;CustomerAccountDto&gt; denormalizedStream = customerStreamByKey
+                .connect(accountStreamByKey)
+                .process(<span style="color:#080;font-weight:bold">new</span> CustomerAccountCoProcessFunction());
+
+        <span style="color:#777">// Now we can print or write the denormalized stream to a sink</span>
+        denormalizedStream.print();</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create Sink to write the data to our ODS database:
+This connector provides a sink that writes data to a JDBC database</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To use it, add the following dependency to your project (along with your JDBC driver):<br></p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span style="color:#070;font-weight:bold">&lt;dependency&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;groupId&gt;</span>org.apache.flink<span style="color:#070;font-weight:bold">&lt;/groupId&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;artifactId&gt;</span>flink-connector-jdbc<span style="color:#070;font-weight:bold">&lt;/artifactId&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;version&gt;</span>3.1.0-1.17<span style="color:#070;font-weight:bold">&lt;/version&gt;</span>
+<span style="color:#070;font-weight:bold">&lt;/dependency&gt;</span>
+<span style="color:#070;font-weight:bold">&lt;dependency&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;groupId&gt;</span>org.postgresql<span style="color:#070;font-weight:bold">&lt;/groupId&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;artifactId&gt;</span>postgresql<span style="color:#070;font-weight:bold">&lt;/artifactId&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;version&gt;</span>42.7.1<span style="color:#070;font-weight:bold">&lt;/version&gt;</span>
+<span style="color:#070;font-weight:bold">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Define the JDBC Sink:<br>
+Define a JDBC sink that outlines how data from our stream is written to the PostgreSQL database.<br>
+This involves specifying the SQL query for inserting/updating data, setting up the connection properties, and defining how each record in the stream is mapped to the query parameters.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span style="color:#088;font-weight:bold">public</span> <span style="color:#088;font-weight:bold">static</span> &lt;T&gt; SinkFunction&lt;T&gt; createJdbcSink(
+            <span style="color:#0a8;font-weight:bold">String</span> sqlQuery,
+            JdbcStatementBuilder&lt;T&gt; statementBuilder) {
+
+        <span style="color:#080;font-weight:bold">return</span> JdbcSink.sink(
+                sqlQuery,
+                statementBuilder,
+                JdbcExecutionOptions.builder()
+                        .withBatchSize(<span style="color:#00D">1</span>)
+                        .build(),
+                <span style="color:#080;font-weight:bold">new</span> JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
+                        .withUrl(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">jdbc:postgresql://localhost:5432/Transaction?currentSchema=ods_schema</span><span style="color:#710">&quot;</span></span>)
+                        .withDriverName(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">org.postgresql.Driver</span><span style="color:#710">&quot;</span></span>)
+                        .withUsername(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">postgres</span><span style="color:#710">&quot;</span></span>)
+                        .withPassword(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">postgres</span><span style="color:#710">&quot;</span></span>)
+                        .build());
+    }</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Implementing Sinks for customer_account Table:</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We implement Upsert(update if exists, insert if new) Logic in Database,For PostgresSQL we use 'ON CONFLICT'
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#777">// Define the SQL query for inserting data into the denormalized customer-account table</span>
+        <span style="color:#0a8;font-weight:bold">String</span> customerAccountSql = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Insert into customer_account (customer_id, customer_name, email, mobile, account_id, account_number, account_status, account_balance, updated_at) values (?,?,?,?,?,?,?,?,?) </span><span style="color:#b0b">\n</span><span style="color:#710">&quot;</span></span> +
+                <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ON CONFLICT (account_number) DO UPDATE </span><span style="color:#710">&quot;</span></span> +
+                <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">SET </span><span style="color:#710">&quot;</span></span> +
+                <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">    customer_name = EXCLUDED.customer_name,</span><span style="color:#b0b">\n</span><span style="color:#710">&quot;</span></span> +
+                <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">    email = EXCLUDED.email,</span><span style="color:#b0b">\n</span><span style="color:#710">&quot;</span></span> +
+                <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">    mobile = EXCLUDED.mobile,</span><span style="color:#b0b">\n</span><span style="color:#710">&quot;</span></span> +
+                <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">    account_status = EXCLUDED.account_status,</span><span style="color:#b0b">\n</span><span style="color:#710">&quot;</span></span> +
+                <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">    account_balance = EXCLUDED.account_balance</span><span style="color:#710">&quot;</span></span>;
+
+        <span style="color:#777">// Create the sink for the denormalized customer-account table</span>
+        SinkFunction&lt;CustomerAccountDto&gt; customerAccountSink = createJdbcSink(
+                customerAccountSql,
+                (statement, denormalizedCustomerAccount) -&gt; {
+                    <span style="color:#777">// Set parameters from the denormalized customer account object</span>
+                    statement.setInt(<span style="color:#00D">1</span>,denormalizedCustomerAccount.getCustomerId());
+                    statement.setString(<span style="color:#00D">2</span>,denormalizedCustomerAccount.getCustomerName());
+                    statement.setString(<span style="color:#00D">3</span>,denormalizedCustomerAccount.getEmail());
+                    statement.setString(<span style="color:#00D">4</span>,denormalizedCustomerAccount.getMobile());
+                    statement.setInt(<span style="color:#00D">5</span>, denormalizedCustomerAccount.getAccountId());
+                    statement.setString(<span style="color:#00D">6</span>,denormalizedCustomerAccount.getAccountNumber());
+                    statement.setString(<span style="color:#00D">7</span>,denormalizedCustomerAccount.getAccountStatus());
+                    statement.setString(<span style="color:#00D">8</span>,denormalizedCustomerAccount.getAccountBalance());
+                    statement.setTimestamp(<span style="color:#00D">9</span>, <span style="color:#0a8;font-weight:bold">Timestamp</span>.valueOf(denormalizedCustomerAccount.getUpdatedAt()));
+                });
+        denormalizedStream.addSink(customerAccountSink);</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now when we run the following sql query that simulate what happened when customer initiated a payment
+transaction :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">insert</span> <span style="color:#B06;font-weight:bold">into</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Transactions</span><span style="color:#710">&quot;</span></span> (transaction_ref_number, customer_id, account_id,transaction_amount,transaction_type,created_at)
+<span style="color:#080;font-weight:bold">values</span> (<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">ref-07</span><span style="color:#710">'</span></span>, <span style="color:#00D">1</span>, <span style="color:#00D">1</span>,<span style="color:#00D">9</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Credit</span><span style="color:#710">'</span></span>,current_timestamp);
+
+<span style="color:#B06;font-weight:bold">update</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Accounts</span><span style="color:#710">&quot;</span></span>
+<span style="color:#B06;font-weight:bold">set</span> account_balance =<span style="color:#00D">333</span>,updated_at = current_timestamp
+<span style="color:#080;font-weight:bold">where</span> customer_id = <span style="color:#00D">1</span>;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The "denormalizedStream" will contain the following Data :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CustomerAccountDto(customerId=1, customerName=motaz Mohamed, email=motaz@test.com, mobile=010101010, accountId=1, accountNumber=111, accountStatus=active, accountBalance=333, updatedAt=2024-01-01T04:52:29.391427)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And the JDBC sink will write the data to the ODS schema "customer_account" table.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="resources/ods/jdbc_sink.png" alt="Customer Account Table">
+</div>
+<div class="title">Figure 2. Customer Account Table</div>
+</div>
+<div class="paragraph">
+<p>We should do the same for transaction data in our ODS schema as following :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">        <span style="color:#777">// Define the SQL query for inserting data into the Transaction table</span>
+        <span style="color:#0a8;font-weight:bold">String</span> transactionSql = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Insert into t_transaction (transaction_id, transaction_ref_number, transaction_amount, transaction_type, account_number, transaction_date) </span><span style="color:#710">&quot;</span></span> +
+                <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> values (?,?,?,?,?,?) </span><span style="color:#710">&quot;</span></span> ;
+        <span style="color:#777">// Create the sink for the Transaction table</span>
+        SinkFunction&lt;TransactionDto&gt; transactionSink = createJdbcSink(
+                transactionSql,
+                (statement, transactionDto) -&gt; {
+                    <span style="color:#777">// Set parameters from the denormalized customer account object</span>
+                    statement.setInt(<span style="color:#00D">1</span>,transactionDto.getId());
+                    statement.setString(<span style="color:#00D">2</span>,transactionDto.getTransactionRefNumber());
+                    statement.setString(<span style="color:#00D">3</span>,<span style="color:#0a8;font-weight:bold">String</span>.valueOf(transactionDto.getTransactionAmount()));
+                    statement.setString(<span style="color:#00D">4</span>,transactionDto.getTransactionType());
+                    statement.setInt(<span style="color:#00D">5</span>, transactionDto.getAccountId());
+                    statement.setTimestamp(<span style="color:#00D">6</span>,<span style="color:#0a8;font-weight:bold">Timestamp</span>.valueOf(transactionDto.getCreatedAt()));
+                });
+        transactionStream.addSink(transactionSink);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary">Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have understood the following :<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>What is Operational data Store and how it is work?</p>
+</li>
+<li>
+<p>We see how we can benefit from our CDC and Apache flink data stream to build our ODS layer.</p>
+</li>
+<li>
+<p>We see how we can consume Data From KAFKA using FLINK and create Data stream.</p>
+</li>
+<li>
+<p>We start our codding to build the ODS layer using Apache Flink for Our Use case, and we finalize the de-normalization of customer and account data alongside the transaction.</p>
+</li>
+<li>
+<p>We can build a sample API on top of the ODS layer to  build our Mobile Dashboard.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can check the Code on th <a href="https://github.com/motazco135/flink-ods.git">GitHub</a></p>
+</div>
+<div class="paragraph">
+<p>What we will do next :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Will Continue our development for the USE case to create the Financial Insights Data.</p>
+</li>
+<li>
+<p>Develop application on Top of ODS Layer to expose API.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://motazco135.github.io/blog/">&#8592;Back</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 3.0<br>
+Last updated 2024-01-01 05:44:21 +0300
+</div>
+</div>
+<script>
+;(function () { /*! Asciidoctor Tabs | Copyright (c) 2018-present Dan Allen | MIT License */
+  'use strict'
+
+  var config = (document.currentScript || {}).dataset || {}
+  var forEach = Array.prototype.forEach
+
+  init(document.querySelectorAll('.tabs'))
+
+  function init (tabsBlocks) {
+    if (!tabsBlocks.length) return
+    forEach.call(tabsBlocks, function (tabs) {
+      var syncIds = tabs.classList.contains('is-sync') ? {} : undefined
+      var tablist = tabs.querySelector('.tablist ul')
+      tablist.setAttribute('role', 'tablist')
+      var start
+      forEach.call(tablist.querySelectorAll('li'), function (tab, idx) {
+        tab.tabIndex = -1
+        tab.setAttribute('role', tab.classList.add('tab') || 'tab')
+        var id, anchor, syncId
+        if (!(id = tab.id) && (anchor = tab.querySelector('a[id]'))) {
+          id = tab.id = anchor.parentNode.removeChild(anchor).id
+        }
+        var panel = id && tabs.querySelector('.tabpanel[aria-labelledby~="' + id + '"]')
+        if (!panel) return idx ? undefined : toggleSelected(tab, true) // invalid state
+        syncIds && (((syncId = tab.textContent.trim()) in syncIds) ? (syncId = undefined) : true) &&
+        (syncIds[(tab.dataset.syncId = syncId)] = tab)
+        idx || (syncIds && (start = { tab: tab, panel: panel })) ? toggleHidden(panel, true) : toggleSelected(tab, true)
+        tab.setAttribute('aria-controls', panel.id)
+        panel.setAttribute('role', 'tabpanel')
+        var onClick = syncId === undefined ? activateTab : activateTabSync
+        tab.addEventListener('click', onClick.bind({ tabs: tabs, tab: tab, panel: panel }))
+      })
+      if (!tabs.closest('.tabpanel')) {
+        forEach.call(tabs.querySelectorAll('.tabpanel table.tableblock'), function (table) {
+          var container = Object.assign(document.createElement('div'), { className: 'tablecontainer' })
+          table.parentNode.insertBefore(container, table).appendChild(table)
+        })
+      }
+      if (start) {
+        var syncGroupId
+        for (var i = 0, lst = tabs.classList, len = lst.length, className; i !== len; i++) {
+          if (!(className = lst.item(i)).startsWith('data-sync-group-id=')) continue
+          tabs.dataset.syncGroupId = syncGroupId = lst.remove(className) || className.slice(19).replace(/\u00a0/g, ' ')
+          break
+        }
+        if (syncGroupId === undefined) tabs.dataset.syncGroupId = syncGroupId = Object.keys(syncIds).sort().join('|')
+        var preferredSyncId = 'syncStorageKey' in config &&
+          window[(config.syncStorageScope || 'local') + 'Storage'].getItem(config.syncStorageKey + '-' + syncGroupId)
+        var tab = preferredSyncId && syncIds[preferredSyncId]
+        tab && Object.assign(start, { tab: tab, panel: document.getElementById(tab.getAttribute('aria-controls')) })
+        toggleSelected(start.tab, true) || toggleHidden(start.panel, false)
+      }
+    })
+    onHashChange()
+    toggleClassOnEach(tabsBlocks, 'is-loading', 'remove')
+    window.setTimeout(toggleClassOnEach.bind(null, tabsBlocks, 'is-loaded', 'add'), 0)
+    window.addEventListener('hashchange', onHashChange)
+  }
+
+  function activateTab (e) {
+    var tab = this.tab
+    var tabs = this.tabs || (this.tabs = tab.closest('.tabs'))
+    var panel = this.panel || (this.panel = document.getElementById(tab.getAttribute('aria-controls')))
+    querySelectorWithSiblings(tabs, '.tablist .tab', 'tab').forEach(function (el) {
+      toggleSelected(el, el === tab)
+    })
+    querySelectorWithSiblings(tabs, '.tabpanel', 'tabpanel').forEach(function (el) {
+      toggleHidden(el, el !== panel)
+    })
+    if (!this.isSync && 'syncStorageKey' in config && 'syncGroupId' in tabs.dataset) {
+      var storageKey = config.syncStorageKey + '-' + tabs.dataset.syncGroupId
+      window[(config.syncStorageScope || 'local') + 'Storage'].setItem(storageKey, tab.dataset.syncId)
+    }
+    if (!e) return
+    var loc = window.location
+    var hashIdx = loc.hash ? loc.href.indexOf('#') : -1
+    if (~hashIdx) window.history.replaceState(null, '', loc.href.slice(0, hashIdx))
+    e.preventDefault()
+  }
+
+  function activateTabSync (e) {
+    activateTab.call(this, e)
+    var thisTabs = this.tabs
+    var thisTab = this.tab
+    var initialY = thisTabs.getBoundingClientRect().y
+    forEach.call(document.querySelectorAll('.tabs'), function (tabs) {
+      if (tabs === thisTabs || tabs.dataset.syncGroupId !== thisTabs.dataset.syncGroupId) return
+      querySelectorWithSiblings(tabs, '.tablist .tab', 'tab').forEach(function (tab) {
+        if (tab.dataset.syncId === thisTab.dataset.syncId) activateTab.call({ tabs: tabs, tab: tab, isSync: true })
+      })
+    })
+    var shiftedBy = thisTabs.getBoundingClientRect().y - initialY
+    if (shiftedBy && (shiftedBy = Math.round(shiftedBy))) window.scrollBy({ top: shiftedBy, behavior: 'instant' })
+  }
+
+  function querySelectorWithSiblings (scope, selector, siblingClass) {
+    var el = scope.querySelector(selector)
+    if (!el) return []
+    var result = [el]
+    while ((el = el.nextElementSibling) && el.classList.contains(siblingClass)) result.push(el)
+    return result
+  }
+
+  function toggleClassOnEach (elements, className, method) {
+    forEach.call(elements, function (el) {
+      el.classList[method](className)
+    })
+  }
+
+  function toggleHidden (el, state) {
+    el.classList[(el.hidden = state) ? 'add' : 'remove']('is-hidden')
+  }
+
+  function toggleSelected (el, state) {
+    el.setAttribute('aria-selected', '' + state)
+    el.classList[state ? 'add' : 'remove']('is-selected')
+    el.tabIndex = state ? 0 : -1
+  }
+
+  function onHashChange () {
+    var id = window.location.hash.slice(1)
+    if (!id) return
+    var tab = document.getElementById(~id.indexOf('%') ? decodeURIComponent(id) : id)
+    if (!(tab && tab.classList.contains('tab'))) return
+    'syncId' in tab.dataset ? activateTabSync.call({ tab: tab }) : activateTab.call({ tab: tab })
+  }
+})()
+</script>
+</body>
+</html>

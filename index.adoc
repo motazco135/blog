@@ -29,5 +29,8 @@ During my studies and work experience , I have had the opportunity to hone my sk
 .Change Data Capture With Debezium
 * https://motazco135.github.io/blog/debezium_cdc.html[Change Data Capture With Debezium]
 
+.Operational Data Store(ODS)
+* https://motazco135.github.io/blog/operational-data-store.html[Operational Data Store(ODS)]
+
 
 
