@@ -764,7 +764,7 @@ This will help in monitoring customer transaction behaviour in order to protect 
 <div class="ulist">
 <ul>
 <li>
-<p>T_Customers :<br>
+<p>t_customers :<br>
 This Table will contain our customer information.</p>
 </li>
 </ul>
@@ -814,7 +814,7 @@ This Table will contain our customer information.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>T_Accounts :<br>
+<p>t_accounts :<br>
 This will contain our customer accounts.</p>
 </li>
 </ul>
@@ -864,7 +864,7 @@ This will contain our customer accounts.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>T_Transactions:<br>
+<p>t_transactions:<br>
 This table will contain customer financial transaction.</p>
 </li>
 </ul>
@@ -1130,10 +1130,10 @@ This table will contain customer financial transaction.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Customers</span><span style="color:#710">&quot;</span></span>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> transactions_schema.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_customers</span><span style="color:#710">&quot;</span></span>
 (
     ID         serial  <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
-        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Customers_pk</span><span style="color:#710">&quot;</span></span>
+        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_customers_pk</span><span style="color:#710">&quot;</span></span>
             <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span>,
     first_name <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
     last_name  <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
@@ -1143,33 +1143,33 @@ This table will contain customer financial transaction.</p>
     updated_at <span style="color:#0a8;font-weight:bold">timestamp</span> <span style="color:#088;font-weight:bold">default</span> CURRENT_TIMESTAMP
 );
 
-<span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Accounts</span><span style="color:#710">&quot;</span></span>
+<span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> transactions_schema.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_accounts</span><span style="color:#710">&quot;</span></span>
 (
     ID                serial  <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
-        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Accounts_pk</span><span style="color:#710">&quot;</span></span>
+        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_accounts_pk</span><span style="color:#710">&quot;</span></span>
             <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span>,
     account_number  <span style="color:#0a8;font-weight:bold">integer</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
     account_status  <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
     account_balance <span style="color:#0a8;font-weight:bold">integer</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
     customer_id     <span style="color:#0a8;font-weight:bold">integer</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
-        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Accounts_T_Customers_id_fk</span><span style="color:#710">&quot;</span></span>
-            <span style="color:#080;font-weight:bold">references</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Customers</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_accounts_t_customers_id_fk</span><span style="color:#710">&quot;</span></span>
+            <span style="color:#080;font-weight:bold">references</span> transactions_schema.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_customers</span><span style="color:#710">&quot;</span></span>,
     created_at        <span style="color:#0a8;font-weight:bold">timestamp</span> <span style="color:#088;font-weight:bold">default</span> CURRENT_TIMESTAMP,
     updated_at        <span style="color:#0a8;font-weight:bold">timestamp</span> <span style="color:#088;font-weight:bold">default</span> CURRENT_TIMESTAMP
 );
 
-<span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Transactions</span><span style="color:#710">&quot;</span></span>
+<span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> transactions_schema.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_transactions</span><span style="color:#710">&quot;</span></span>
 (
     id                     serial                             <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
-        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Transactions_pk</span><span style="color:#710">&quot;</span></span>
+        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_transactions_pk</span><span style="color:#710">&quot;</span></span>
             <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span>,
     transaction_ref_number <span style="color:#0a8;font-weight:bold">varchar</span>                             <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
     customer_id            <span style="color:#0a8;font-weight:bold">integer</span>                             <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
-        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Transactions_T_Customers_id_fk</span><span style="color:#710">&quot;</span></span>
-            <span style="color:#080;font-weight:bold">references</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Customers</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_transactions_t_customers_id_fk</span><span style="color:#710">&quot;</span></span>
+            <span style="color:#080;font-weight:bold">references</span> transactions_schema.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_customers</span><span style="color:#710">&quot;</span></span>,
     account_id             <span style="color:#0a8;font-weight:bold">integer</span>                             <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
-        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Transactions_T_Accounts_id_fk</span><span style="color:#710">&quot;</span></span>
-            <span style="color:#080;font-weight:bold">references</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Accounts</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#339;font-weight:bold">constraint</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_transactions_t_accounts_id_fk</span><span style="color:#710">&quot;</span></span>
+            <span style="color:#080;font-weight:bold">references</span> transactions_schema.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_accounts</span><span style="color:#710">&quot;</span></span>,
     transaction_amount     <span style="color:#0a8;font-weight:bold">integer</span>                             <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
     transaction_type       <span style="color:#0a8;font-weight:bold">varchar</span>                             <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
     created_at             <span style="color:#0a8;font-weight:bold">timestamp</span> <span style="color:#088;font-weight:bold">default</span> CURRENT_TIMESTAMP <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
@@ -1222,13 +1222,13 @@ This table will contain customer financial transaction.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">INTO</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Customers</span><span style="color:#710">&quot;</span></span> (id, first_name, last_name, email, mobile, created_at, updated_at) <span style="color:#080;font-weight:bold">VALUES</span> (<span style="color:#088;font-weight:bold">DEFAULT</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">motaz</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">motaz</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">motaz@test.com</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">0555555555</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="color:#088;font-weight:bold">DEFAULT</span>, <span style="color:#088;font-weight:bold">DEFAULT</span>)
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">INTO</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_customers</span><span style="color:#710">&quot;</span></span> (id, first_name, last_name, email, mobile, created_at, updated_at) <span style="color:#080;font-weight:bold">VALUES</span> (<span style="color:#088;font-weight:bold">DEFAULT</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">motaz</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">motaz</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">motaz@test.com</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">0555555555</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="color:#088;font-weight:bold">DEFAULT</span>, <span style="color:#088;font-weight:bold">DEFAULT</span>)
 
-<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Accounts</span><span style="color:#710">&quot;</span></span> (id, account_number, account_status, account_balance, customer_id, created_at, updated_at) <span style="color:#080;font-weight:bold">VALUES</span> (<span style="color:#088;font-weight:bold">DEFAULT</span>, <span style="color:#00D">111</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">active</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="color:#00D">1000</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="color:#00D">1</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="color:#088;font-weight:bold">DEFAULT</span>, <span style="color:#088;font-weight:bold">DEFAULT</span>);
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_accounts</span><span style="color:#710">&quot;</span></span> (id, account_number, account_status, account_balance, customer_id, created_at, updated_at) <span style="color:#080;font-weight:bold">VALUES</span> (<span style="color:#088;font-weight:bold">DEFAULT</span>, <span style="color:#00D">111</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">active</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="color:#00D">1000</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="color:#00D">1</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="color:#088;font-weight:bold">DEFAULT</span>, <span style="color:#088;font-weight:bold">DEFAULT</span>);
 
-<span style="color:#B06;font-weight:bold">UPDATE</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Accounts</span><span style="color:#710">&quot;</span></span> <span style="color:#B06;font-weight:bold">SET</span> account_status = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">in-active</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">WHERE</span> id = <span style="color:#00D">1</span>::<span style="color:#0a8;font-weight:bold">integer</span>;
+<span style="color:#B06;font-weight:bold">UPDATE</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_accounts</span><span style="color:#710">&quot;</span></span> <span style="color:#B06;font-weight:bold">SET</span> account_status = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">in-active</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">WHERE</span> id = <span style="color:#00D">1</span>::<span style="color:#0a8;font-weight:bold">integer</span>;
 
-<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Transactions</span><span style="color:#710">&quot;</span></span> (id, transaction_ref_number, customer_id, account_id, transaction_amount, transaction_type, created_at) <span style="color:#080;font-weight:bold">VALUES</span> (<span style="color:#088;font-weight:bold">DEFAULT</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">ref-01</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="color:#00D">1</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="color:#00D">1</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="color:#00D">10</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Credit</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="color:#088;font-weight:bold">DEFAULT</span>);</code></pre>
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> public.<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_transactions</span><span style="color:#710">&quot;</span></span> (id, transaction_ref_number, customer_id, account_id, transaction_amount, transaction_type, created_at) <span style="color:#080;font-weight:bold">VALUES</span> (<span style="color:#088;font-weight:bold">DEFAULT</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">ref-01</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="color:#00D">1</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="color:#00D">1</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="color:#00D">10</span>::<span style="color:#0a8;font-weight:bold">integer</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Credit</span><span style="color:#710">'</span></span>::<span style="color:#0a8;font-weight:bold">varchar</span>, <span style="color:#088;font-weight:bold">DEFAULT</span>);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1250,7 +1250,7 @@ We should found the following kafka topics created :</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Click on topic from control center Example : <mark>fulfillment.public.T_Accounts </mark></p>
+<p>Click on topic from control center Example : <mark>fulfillment.public.t_accounts </mark></p>
 </li>
 <li>
 <p>Click on messages.</p>
@@ -1279,7 +1279,7 @@ We should found the following kafka topics created :</p>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="json">[
     {
-        <span style="color:#606"><span style="color:#404">&quot;</span><span>topic</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">fulfillment.public.T_Accounts</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>topic</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">fulfillment.public.t_accounts</span><span style="color:#710">&quot;</span></span>,
         <span style="color:#606"><span style="color:#404">&quot;</span><span>partition</span><span style="color:#404">&quot;</span></span>: <span style="color:#00D">0</span>,
         <span style="color:#606"><span style="color:#404">&quot;</span><span>offset</span><span style="color:#404">&quot;</span></span>: <span style="color:#00D">0</span>,
         <span style="color:#606"><span style="color:#404">&quot;</span><span>timestamp</span><span style="color:#404">&quot;</span></span>: <span style="color:#00D">1701901434642</span>,
@@ -1316,7 +1316,7 @@ We should found the following kafka topics created :</p>
                     <span style="color:#606"><span style="color:#404">&quot;</span><span>string</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">[</span><span style="color:#b0b">\&quot;</span><span style="color:#D20">31538088</span><span style="color:#b0b">\&quot;</span><span style="color:#D20">,</span><span style="color:#b0b">\&quot;</span><span style="color:#D20">31538304</span><span style="color:#b0b">\&quot;</span><span style="color:#D20">]</span><span style="color:#710">&quot;</span></span>
                 },
                 <span style="color:#606"><span style="color:#404">&quot;</span><span>schema</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">public</span><span style="color:#710">&quot;</span></span>,
-                <span style="color:#606"><span style="color:#404">&quot;</span><span>table</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Accounts</span><span style="color:#710">&quot;</span></span>,
+                <span style="color:#606"><span style="color:#404">&quot;</span><span>table</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_accounts</span><span style="color:#710">&quot;</span></span>,
                 <span style="color:#606"><span style="color:#404">&quot;</span><span>txId</span><span style="color:#404">&quot;</span></span>: {
                     <span style="color:#606"><span style="color:#404">&quot;</span><span>long</span><span style="color:#404">&quot;</span></span>: <span style="color:#00D">774</span>
                 },
@@ -1357,7 +1357,7 @@ We should found the following kafka topics created :</p>
 <div id="footer">
 <div id="footer-text">
 Version 3.0<br>
-Last updated 2023-12-07 02:44:36 +0300
+Last updated 2024-01-14 20:46:05 +0300
 </div>
 </div>
 <script>

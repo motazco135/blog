@@ -103,7 +103,7 @@ This will help in monitoring customer transaction behaviour in order to protect 
 
 We will assume that we have the following DB tables :
 
-* T_Customers : +
+* t_customers : +
 This Table will contain our customer information.
 |===
 |Column Name | Description
@@ -131,7 +131,7 @@ This Table will contain our customer information.
 |===
 
 
-* T_Accounts : +
+* t_accounts : +
 This will contain our customer accounts.
 
 |===
@@ -160,7 +160,7 @@ This will contain our customer accounts.
 |===
 
 
-* T_Transactions: +
+* t_transactions: +
 This table will contain customer financial transaction.
 |===
 |Column Name | Description
@@ -371,10 +371,10 @@ DB setup validation you can connect to DB  using the following connection parame
 Use the following script to create Tables :
 [source,sql]
 ----
-create table public."T_Customers"
+create table transactions_schema."t_customers"
 (
     ID         serial  not null
-        constraint "T_Customers_pk"
+        constraint "t_customers_pk"
             primary key,
     first_name varchar not null,
     last_name  varchar not null,
@@ -384,33 +384,33 @@ create table public."T_Customers"
     updated_at timestamp default CURRENT_TIMESTAMP
 );
 
-create table public."T_Accounts"
+create table transactions_schema."t_accounts"
 (
     ID                serial  not null
-        constraint "T_Accounts_pk"
+        constraint "t_accounts_pk"
             primary key,
     account_number  integer not null,
     account_status  varchar not null,
     account_balance integer not null,
     customer_id     integer not null
-        constraint "T_Accounts_T_Customers_id_fk"
-            references public."T_Customers",
+        constraint "t_accounts_t_customers_id_fk"
+            references transactions_schema."t_customers",
     created_at        timestamp default CURRENT_TIMESTAMP,
     updated_at        timestamp default CURRENT_TIMESTAMP
 );
 
-create table public."T_Transactions"
+create table transactions_schema."t_transactions"
 (
     id                     serial                             not null
-        constraint "T_Transactions_pk"
+        constraint "t_transactions_pk"
             primary key,
     transaction_ref_number varchar                             not null,
     customer_id            integer                             not null
-        constraint "T_Transactions_T_Customers_id_fk"
-            references public."T_Customers",
+        constraint "t_transactions_t_customers_id_fk"
+            references transactions_schema."t_customers",
     account_id             integer                             not null
-        constraint "T_Transactions_T_Accounts_id_fk"
-            references public."T_Accounts",
+        constraint "t_transactions_t_accounts_id_fk"
+            references transactions_schema."t_accounts",
     transaction_amount     integer                             not null,
     transaction_type       varchar                             not null,
     created_at             timestamp default CURRENT_TIMESTAMP not null
@@ -454,13 +454,13 @@ Now we will start Insert and update some records in the DB and check the Kafka t
 Run the following database insert statement :
 [source,sql]
 ----
-INTO public."T_Customers" (id, first_name, last_name, email, mobile, created_at, updated_at) VALUES (DEFAULT, 'motaz'::varchar, 'motaz'::varchar, 'motaz@test.com'::varchar, '0555555555'::varchar, DEFAULT, DEFAULT)
+INTO public."t_customers" (id, first_name, last_name, email, mobile, created_at, updated_at) VALUES (DEFAULT, 'motaz'::varchar, 'motaz'::varchar, 'motaz@test.com'::varchar, '0555555555'::varchar, DEFAULT, DEFAULT)
 
-INSERT INTO public."T_Accounts" (id, account_number, account_status, account_balance, customer_id, created_at, updated_at) VALUES (DEFAULT, 111::integer, 'active'::varchar, 1000::integer, 1::integer, DEFAULT, DEFAULT);
+INSERT INTO public."t_accounts" (id, account_number, account_status, account_balance, customer_id, created_at, updated_at) VALUES (DEFAULT, 111::integer, 'active'::varchar, 1000::integer, 1::integer, DEFAULT, DEFAULT);
 
-UPDATE public."T_Accounts" SET account_status = 'in-active'::varchar WHERE id = 1::integer;
+UPDATE public."t_accounts" SET account_status = 'in-active'::varchar WHERE id = 1::integer;
 
-INSERT INTO public."T_Transactions" (id, transaction_ref_number, customer_id, account_id, transaction_amount, transaction_type, created_at) VALUES (DEFAULT, 'ref-01'::varchar, 1::integer, 1::integer, 10::integer, 'Credit'::varchar, DEFAULT);
+INSERT INTO public."t_transactions" (id, transaction_ref_number, customer_id, account_id, transaction_amount, transaction_type, created_at) VALUES (DEFAULT, 'ref-01'::varchar, 1::integer, 1::integer, 10::integer, 'Credit'::varchar, DEFAULT);
 
 ----
 
@@ -474,7 +474,7 @@ We will found that we have a three created topics each one represents a table th
 
 We can check the published messages in the kafka topic for validation.
 
-. Click on topic from control center Example : ##fulfillment.public.T_Accounts ##
+. Click on topic from control center Example : ##fulfillment.public.t_accounts ##
 . Click on messages.
 . Select offset 0 at jump to offset.
 . We will see the following message :
@@ -489,7 +489,7 @@ You will notice that the message contains json object as following :
 ----
 [
     {
-        "topic": "fulfillment.public.T_Accounts",
+        "topic": "fulfillment.public.t_accounts",
         "partition": 0,
         "offset": 0,
         "timestamp": 1701901434642,
@@ -526,7 +526,7 @@ You will notice that the message contains json object as following :
                     "string": "[\"31538088\",\"31538304\"]"
                 },
                 "schema": "public",
-                "table": "T_Accounts",
+                "table": "t_accounts",
                 "txId": {
                     "long": 774
                 },

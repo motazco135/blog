@@ -748,10 +748,10 @@ We create a new schema for the ODS
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> ods_schema.T_Transaction
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> ods_schema.t_transaction
 (
     transaction_id         serial    <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>
-        <span style="color:#339;font-weight:bold">constraint</span> T_Transaction_pk
+        <span style="color:#339;font-weight:bold">constraint</span> t_transaction_pk
             <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span>,
     transaction_ref_number <span style="color:#0a8;font-weight:bold">varchar</span>   <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
     transaction_amount     <span style="color:#0a8;font-weight:bold">varchar</span>   <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>,
@@ -1295,7 +1295,7 @@ transaction :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">insert</span> <span style="color:#B06;font-weight:bold">into</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Transactions</span><span style="color:#710">&quot;</span></span> (transaction_ref_number, customer_id, account_id,transaction_amount,transaction_type,created_at)
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">insert</span> <span style="color:#B06;font-weight:bold">into</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">t_transactions</span><span style="color:#710">&quot;</span></span> (transaction_ref_number, customer_id, account_id,transaction_amount,transaction_type,created_at)
 <span style="color:#080;font-weight:bold">values</span> (<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">ref-07</span><span style="color:#710">'</span></span>, <span style="color:#00D">1</span>, <span style="color:#00D">1</span>,<span style="color:#00D">9</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Credit</span><span style="color:#710">'</span></span>,current_timestamp);
 
 <span style="color:#B06;font-weight:bold">update</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">T_Accounts</span><span style="color:#710">&quot;</span></span>
@@ -1396,7 +1396,7 @@ transaction :</p>
 <div id="footer">
 <div id="footer-text">
 Version 3.0<br>
-Last updated 2024-01-01 05:44:21 +0300
+Last updated 2024-01-14 20:35:21 +0300
 </div>
 </div>
 <script>

@@ -87,10 +87,10 @@ create table ods_schema.customer_account
 
 [source,sql]
 ----
-create table ods_schema.T_Transaction
+create table ods_schema.t_transaction
 (
     transaction_id         serial    not null
-        constraint T_Transaction_pk
+        constraint t_transaction_pk
             primary key,
     transaction_ref_number varchar   not null,
     transaction_amount     varchar   not null,
@@ -512,7 +512,7 @@ transaction :
 
 [source, sql]
 ----
-insert into "T_Transactions" (transaction_ref_number, customer_id, account_id,transaction_amount,transaction_type,created_at)
+insert into "t_transactions" (transaction_ref_number, customer_id, account_id,transaction_amount,transaction_type,created_at)
 values ('ref-07', 1, 1,9,'Credit',current_timestamp);
 
 update "T_Accounts"
