@@ -106,7 +106,7 @@ create table ods_schema.t_transaction
 
 [source, sql]
 ----
-create table ods_schema.T_financial_insights
+create table ods_schema.t_financial_insights
 (
     customer_id              integer not null
         constraint T_financial_insights_pk
