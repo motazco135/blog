@@ -32,5 +32,8 @@ During my studies and work experience , I have had the opportunity to hone my sk
 .Operational Data Store(ODS)
 * https://motazco135.github.io/blog/operational-data-store.html[Operational Data Store(ODS)]
 
+.Distributed Transaction
+* https://motazco135.github.io/blog/distributed-transaction.html[Distributed Transaction]
+
 
 
