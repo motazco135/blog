@@ -695,9 +695,92 @@ public class CustomerController {
 
 * Run Request
 Call the customer service by customer id =1
-
++
 .Customer Profile
 image::resources/redis/request.png[Get Cutomer Profile]
++
 
-You can find complete Code at https://github.com/motazco135/data-preload/[GitHub].
+Now we can create aggregated Customer profile to get customer and his related accounts and list of top 5 transaction on each account .
++
+[source, java]
+----
+    public Optional<CompleteProfileResponse> getCustomerCompleteProfile(String customerId){
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
+        if(optionalCustomer.isEmpty()){
+            return Optional.empty();
+        }
+        Iterable<Account> accounts = accountRepository.findByCustomerId(customerId);
+        List<AccountResponse> accountResponseList = new ArrayList<>();
+        accounts.forEach(account -> {
+            List<Transaction> recentTransactions = transactionRepository.findTop10ByAccountIdOrderByCreatedAtDesc(account.getId());
+            accountResponseList.add(new AccountResponse(account,recentTransactions) );
+        });
+
+        AccountResponse accountResponse = new AccountResponse();
+        return Optional.of(new CompleteProfileResponse(optionalCustomer.get(), accountResponseList));
+    }
+----
++
+[source,json]
+----
+{
+  "customer": {
+    "id": "1",
+    "firstName": "motaz",
+    "lastName": "motaz",
+    "email": "a@test.com",
+    "mobile": "0000000000"
+  },
+  "accounts": [
+    {
+      "account": {
+        "id": "2",
+        "accountNumber": "111",
+        "accountStatus": "active",
+        "accountBalance": "1000",
+        "customerId": "1"
+      },
+      "transactions": []
+    },
+    {
+      "account": {
+        "id": "4",
+        "accountNumber": "333",
+        "accountStatus": "active",
+        "accountBalance": "100",
+        "customerId": "1"
+      },
+      "transactions": [
+        {
+          "id": "4",
+          "transactionRefNumber": "ref-02",
+          "customerId": "1",
+          "accountId": "4",
+          "transactionAmount": "10",
+          "transactionType": "Credit",
+          "createdAt": 1730509389682,
+          "updatedAt": 1730509389682
+        },
+        {
+          "id": "2",
+          "transactionRefNumber": "ref-02",
+          "customerId": "1",
+          "accountId": "4",
+          "transactionAmount": "10",
+          "transactionType": "Credit",
+          "createdAt": 1730335188316,
+          "updatedAt": 1730433794472
+        }
+      ]
+    }
+  ]
+}
+----
+
+== Summary
+In this article, we explored an optimized approach for preloading data using Redis and Kafka connectors, particularly for real-time applications that need fast, efficient data access. We demonstrated how Redis can serve as an effective alternative to traditional ODS layers, reducing database load and providing enhanced data retrieval speed.
+
+We also introduced an aggregation service that consolidates customer data, account summaries, and recent transactions into a single API, enhancing the user experience.
+
+Full implementation details are available in the GitHub repository for further customization. https://github.com/motazco135/data-preload/[GitHub].
 

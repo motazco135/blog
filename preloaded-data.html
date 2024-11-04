@@ -572,6 +572,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_step_4_developing_sample_microservice_to_aggregate_data_in_response">Step 4: Developing Sample Microservice to aggregate data in response</a></li>
 </ul>
 </li>
+<li><a href="#_summary">Summary</a></li>
 </ul>
 </div>
 </div>
@@ -1546,9 +1547,6 @@ To mark the class as JSON document we use the <mark>@Document</mark> annotation<
 <li>
 <p>Run Request
 Call the customer service by customer id =1</p>
-</li>
-</ul>
-</div>
 <div class="imageblock">
 <div class="content">
 <img src="resources/redis/request.png" alt="Get Cutomer Profile">
@@ -1556,8 +1554,100 @@ Call the customer service by customer id =1</p>
 <div class="title">Figure 6. Customer Profile</div>
 </div>
 <div class="paragraph">
-<p>You can find complete Code at <a href="https://github.com/motazco135/data-preload/">GitHub</a>.</p>
+<p>Now we can create aggregated Customer profile to get customer and his related accounts and list of top 5 transaction on each account .</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span style="color:#088;font-weight:bold">public</span> Optional&lt;CompleteProfileResponse&gt; getCustomerCompleteProfile(<span style="color:#0a8;font-weight:bold">String</span> customerId){
+        Optional&lt;Customer&gt; optionalCustomer = customerRepository.findById(customerId);
+        <span style="color:#080;font-weight:bold">if</span>(optionalCustomer.isEmpty()){
+            <span style="color:#080;font-weight:bold">return</span> Optional.empty();
+        }
+        <span style="color:#0a8;font-weight:bold">Iterable</span>&lt;Account&gt; accounts = accountRepository.findByCustomerId(customerId);
+        <span style="color:#0a8;font-weight:bold">List</span>&lt;AccountResponse&gt; accountResponseList = <span style="color:#080;font-weight:bold">new</span> <span style="color:#0a8;font-weight:bold">ArrayList</span>&lt;&gt;();
+        accounts.forEach(account -&gt; {
+            <span style="color:#0a8;font-weight:bold">List</span>&lt;Transaction&gt; recentTransactions = transactionRepository.findTop10ByAccountIdOrderByCreatedAtDesc(account.getId());
+            accountResponseList.add(<span style="color:#080;font-weight:bold">new</span> AccountResponse(account,recentTransactions) );
+        });
+
+        AccountResponse accountResponse = <span style="color:#080;font-weight:bold">new</span> AccountResponse();
+        <span style="color:#080;font-weight:bold">return</span> Optional.of(<span style="color:#080;font-weight:bold">new</span> CompleteProfileResponse(optionalCustomer.get(), accountResponseList));
+    }</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>customer</span><span style="color:#404">&quot;</span></span>: {
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">1</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>firstName</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">motaz</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>lastName</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">motaz</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>email</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">a@test.com</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>mobile</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">0000000000</span><span style="color:#710">&quot;</span></span>
+  },
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>accounts</span><span style="color:#404">&quot;</span></span>: [
+    {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>account</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">2</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>accountNumber</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">111</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>accountStatus</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">active</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>accountBalance</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">1000</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>customerId</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">1</span><span style="color:#710">&quot;</span></span>
+      },
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>transactions</span><span style="color:#404">&quot;</span></span>: []
+    },
+    {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>account</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">4</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>accountNumber</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">333</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>accountStatus</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">active</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>accountBalance</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">100</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>customerId</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">1</span><span style="color:#710">&quot;</span></span>
+      },
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>transactions</span><span style="color:#404">&quot;</span></span>: [
+        {
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">4</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>transactionRefNumber</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ref-02</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>customerId</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">1</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>accountId</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">4</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>transactionAmount</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">10</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>transactionType</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Credit</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>createdAt</span><span style="color:#404">&quot;</span></span>: <span style="color:#00D">1730509389682</span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>updatedAt</span><span style="color:#404">&quot;</span></span>: <span style="color:#00D">1730509389682</span>
+        },
+        {
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">2</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>transactionRefNumber</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ref-02</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>customerId</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">1</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>accountId</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">4</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>transactionAmount</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">10</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>transactionType</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Credit</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>createdAt</span><span style="color:#404">&quot;</span></span>: <span style="color:#00D">1730335188316</span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>updatedAt</span><span style="color:#404">&quot;</span></span>: <span style="color:#00D">1730433794472</span>
+        }
+      ]
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary">Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this article, we explored an optimized approach for preloading data using Redis and Kafka connectors, particularly for real-time applications that need fast, efficient data access. We demonstrated how Redis can serve as an effective alternative to traditional ODS layers, reducing database load and providing enhanced data retrieval speed.</p>
+</div>
+<div class="paragraph">
+<p>We also introduced an aggregation service that consolidates customer data, account summaries, and recent transactions into a single API, enhancing the user experience.</p>
+</div>
+<div class="paragraph">
+<p>Full implementation details are available in the GitHub repository for further customization. <a href="https://github.com/motazco135/data-preload/">GitHub</a>.</p>
 </div>
 </div>
 </div>
@@ -1565,7 +1655,7 @@ Call the customer service by customer id =1</p>
 <div id="footer">
 <div id="footer-text">
 Version 3.0<br>
-Last updated 2024-11-02 03:22:51 +0300
+Last updated 2024-11-02 04:41:48 +0300
 </div>
 </div>
 <script>
