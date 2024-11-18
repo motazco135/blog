@@ -455,3 +455,19 @@ image::resources/kstream/TestContoller.png[Customer Average Spending ]
 
 == Summary
 
+In this article, we demonstrated how to build a Kafka Streams application to calculate the average spending of customers using real-time transaction data.
+
+The implementation covers:
+
+* Filtering and processing credit transactions.
+* Aggregating data with Kafka Streams to compute customer insights.
+* Storing results in Redis for efficient retrieval.
+* Exposing the processed data via a REST API for downstream applications.
+
+This article highlights the seamless integration of Kafka Streams and Redis, showcasing how real-time analytics can enhance customer experience and drive business decisions.
+
+Full implementation details are available in the GitHub repository for further customization:
+
+* https://github.com/motazco135/transaction-stream[Real Time Transaction Stream]
+* https://github.com/motazco135/data-preload/[data-preload] updated code.
+
